@@ -5,6 +5,10 @@ import routes from './routes';
 import userRouter from './router/userRouter';
 import cors from 'cors';
 import { sequelize, User } from './models';
+import authRouter from './router/authRouter';
+
+import './passport';
+import { authenticateJwt } from './passport';
 
 const app = express();
 
@@ -16,6 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
+app.use(authenticateJwt);
+
+app.use(routes.auth, authRouter);
 app.use(routes.home, userRouter);
 
 export default app;
