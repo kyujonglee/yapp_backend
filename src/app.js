@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -8,7 +10,7 @@ import { sequelize, User } from './models';
 import authRouter from './router/authRouter';
 
 import './passport';
-import { authenticateJwt } from './passport';
+import { authenticateJwt } from './middlewares';
 
 const app = express();
 

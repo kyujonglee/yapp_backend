@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import passport from 'passport';
 import passportJWT from 'passport-jwt';
 import { User } from './models';
@@ -9,9 +11,8 @@ const jwtOptions = {
 };
 
 const verifyUser = async (payload, done) => {
-  console.log('payload : ', payload);
   try {
-    const user = await User.findOne({ id: payload.id });
+    const user = await User.findOne({ where: { id: payload.id } });
     if (user !== null) {
       return done(null, user);
     } else {
