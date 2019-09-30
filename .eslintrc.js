@@ -13,5 +13,8 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  rules: {}
+  rules: {
+    'import/first': 0,
+    'no-dynamic-require': 0
+  }
 };

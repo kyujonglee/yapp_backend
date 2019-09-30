@@ -3,9 +3,7 @@ import Sequelize from 'sequelize';
 import UserModel from './user';
 
 const env = process.env.NODE_ENV || 'development';
-const config = require(path.join(__dirname, '..', 'config', 'config.json'))[
-  env
-];
+const config = require(path.join(__dirname, '..', 'config', 'config.js'))[env];
 
 export const sequelize = new Sequelize(
   config.database,
@@ -17,4 +15,3 @@ export const sequelize = new Sequelize(
 export const User = UserModel(sequelize, Sequelize);
 
 sequelize.sync();
-
