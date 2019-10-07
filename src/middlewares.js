@@ -1,4 +1,27 @@
 import passport from 'passport';
+import multer from 'multer';
+import multerS3 from 'multer-s3';
+import aws from 'aws-sdk';
+
+const endpoint = new aws.Endpoint('https://kr.object.ncloudstorage.com');
+const region = 'kr-standard';
+
+const s3 = new aws.S3({
+  accessKeyId: process.env.NCLOUD_KEY,
+  secretAccessKey: process.env.NCLOUD_PRIVATE_KEY,
+  region,
+  endpoint
+});
+
+const multerAvatar = multer({
+  storage: multerS3({
+    s3,
+    acl: 'public-read',
+    bucket: 'yapp-backend/avatar'
+  })
+});
+
+export const uploadAvatar = multerAvatar.single('avatar');
 
 export const authenticateJwt = (req, res, next) =>
   passport.authenticate('jwt', { sessions: false }, (error, user) => {
@@ -7,7 +30,7 @@ export const authenticateJwt = (req, res, next) =>
         req.user = user;
       }
       next();
-    } catch (error) {
-      res.status(400).json({ error });
+    } catch (err) {
+      res.status(400).json({ error: err });
     }
   })(req, res, next);
