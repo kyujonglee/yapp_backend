@@ -1,9 +1,9 @@
-import { User } from '../models';
 import bcrypt from 'bcrypt';
+import { User } from '../models';
 import { generateToken } from '../util';
 import message from '../message';
 
-export const postlogin = async (req, res) => {
+export const postLogin = async (req, res) => {
   try {
     const {
       body: { email, password }

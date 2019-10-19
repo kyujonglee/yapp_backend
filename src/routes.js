@@ -1,21 +1,26 @@
-// sample!!
 const HOME = '/';
 const JOIN = '/join';
 const LOGIN = '/login';
-const LOGOUT = '/logout';
 const SEARCH = '/search';
 
 const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
 
+const API = '/api';
+
+const PROJECTS = '/projects';
+const PROJECT_ID = '/:projectId';
+
 const routes = {
   home: HOME,
   join: JOIN,
   login: LOGIN,
-  logout: LOGOUT,
   search: SEARCH,
   auth: AUTH,
-  getToken: GET_TOKEN
+  getToken: GET_TOKEN,
+  api: API,
+  projects: PROJECTS,
+  projectId: PROJECT_ID
 };
 
 export default routes;

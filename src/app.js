@@ -7,11 +7,11 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 import routes from './routes';
-import userRouter from './router/userRouter';
 import authRouter from './router/authRouter';
 
 import './passport';
 import { authenticateJwt } from './middlewares';
+import apiRouter from './router/apiRouter';
 
 const app = express();
 
@@ -24,6 +24,6 @@ app.use(morgan('dev'));
 app.use(authenticateJwt);
 
 app.use(routes.auth, authRouter);
-app.use(routes.home, userRouter);
+app.use(routes.api, apiRouter);
 
 export default app;
