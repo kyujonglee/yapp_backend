@@ -8,22 +8,12 @@ import cors from 'cors';
 
 import routes from './routes';
 import userRouter from './router/userRouter';
-import { sequelize, User } from './models';
 import authRouter from './router/authRouter';
 
 import './passport';
 import { authenticateJwt } from './middlewares';
 
 const app = express();
-
-sequelize.sync();
-
-User.create({
-  email: 'kyujong93@naver.com',
-  password: '123',
-  name : 'kyu',
-  age : 21
-});
 
 app.use(helmet());
 app.use(cors());
