@@ -3,7 +3,8 @@ import { Project } from '../models';
 export const findProjects = async (req, res) => {
   try {
     const projects = await Project.findAll({
-      order: [['createAt', 'DESC']]
+      order: [['createAt', 'DESC']],
+      limit : 6
     });
     res.json({ projects });
   } catch (error) {
