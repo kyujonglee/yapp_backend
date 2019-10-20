@@ -1,4 +1,5 @@
 const HOME = '/';
+const HELLO = '/hello';
 const JOIN = '/join';
 const LOGIN = '/login';
 const SEARCH = '/search';
@@ -13,6 +14,7 @@ const PROJECT_ID = '/:projectId';
 
 const routes = {
   home: HOME,
+  hello: HELLO,
   join: JOIN,
   login: LOGIN,
   search: SEARCH,

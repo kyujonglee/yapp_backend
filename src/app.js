@@ -11,6 +11,7 @@ import swaggerDefinition from './swagger';
 
 import routes from './routes';
 import authRouter from './router/authRouter';
+import helloRouter from './router/helloRouter';
 
 import './passport';
 import { authenticateJwt } from './middlewares';
@@ -28,6 +29,7 @@ app.use(authenticateJwt);
 
 app.use(routes.auth, authRouter);
 app.use(routes.api, apiRouter);
+app.use(routes.hello, helloRouter);
 
 const swaggerOption = {
   swaggerDefinition,

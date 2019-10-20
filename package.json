@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --exec babel-node src/init.js",
-    "start": "NODE_ENV=production babel-node src/init.js"
+    "start": "NODE_ENV=production babel-node src/init.js",
+    "test": "mocha"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -19,6 +20,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.2",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
@@ -38,9 +40,11 @@
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
     "mysql2": "^1.7.0",
+    "node-mocks-http": "^1.8.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "sequelize": "^5.19.1",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "should": "^13.2.3"
   }
 }
