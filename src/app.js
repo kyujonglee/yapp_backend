@@ -5,26 +5,19 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDefinition from './swagger';
 
 import routes from './routes';
-import userRouter from './router/userRouter';
-import { sequelize, User } from './models';
 import authRouter from './router/authRouter';
 import helloRouter from './router/helloRouter';
 
 import './passport';
 import { authenticateJwt } from './middlewares';
+import apiRouter from './router/apiRouter';
 
 const app = express();
-
-sequelize.sync();
-
-User.create({
-  email: 'kyujong93@naver.com',
-  password: '123',
-  name : 'kyu',
-  age : 21
-});
 
 app.use(helmet());
 app.use(cors());
@@ -35,7 +28,16 @@ app.use(morgan('dev'));
 app.use(authenticateJwt);
 
 app.use(routes.auth, authRouter);
-app.use(routes.home, userRouter);
+app.use(routes.api, apiRouter);
 app.use(routes.hello, helloRouter);
+
+const swaggerOption = {
+  swaggerDefinition,
+  apis: ['./src/router/**/*.js']
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOption);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default app;

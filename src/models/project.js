@@ -1,23 +1,29 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_user',
+    'tbl_project',
     {
-      userId: {
+      projectId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      email: {
-        type: DataTypes.STRING(100),
+      title: {
+        type: DataTypes.STRING(200),
         allowNull: false
       },
-      password: {
-        type: DataTypes.STRING(150),
+      content: {
+        type: DataTypes.TEXT
+      },
+      thumbnailImage: {
+        type: DataTypes.STRING(200),
         allowNull: false
       },
-      nickname: {
-        type: DataTypes.STRING(50),
-        allowNull: false
+      attachFile: {
+        type: DataTypes.STRING(200)
+      },
+      viewCnt: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
       },
       createAt: {
         type: DataTypes.DATE,
