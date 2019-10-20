@@ -10,6 +10,7 @@ import routes from './routes';
 import userRouter from './router/userRouter';
 import { sequelize, User } from './models';
 import authRouter from './router/authRouter';
+import helloRouter from './router/helloRouter';
 
 import './passport';
 import { authenticateJwt } from './middlewares';
@@ -35,5 +36,6 @@ app.use(authenticateJwt);
 
 app.use(routes.auth, authRouter);
 app.use(routes.home, userRouter);
+app.use(routes.hello, helloRouter);
 
 export default app;
