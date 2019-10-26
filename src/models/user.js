@@ -15,7 +15,7 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.STRING(150),
         allowNull: false
       },
-      nickname: {
+      name: {
         type: DataTypes.STRING(50),
         allowNull: false
       },

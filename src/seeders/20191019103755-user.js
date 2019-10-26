@@ -7,12 +7,12 @@ export default {
       'tbl_user',
       [
         {
-          nickname: 'KyuKyu',
+          name: '이규종',
           email: 'kyujong93@naver.com',
           password: await bcrypt.hash('toddlf20', saltRounds)
         },
         {
-          nickname: 'beautiful name',
+          name: '이규종2',
           email: 'kyujong93@gmail.com',
           password: await bcrypt.hash('toddlf20', saltRounds)
         }

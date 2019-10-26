@@ -5,10 +5,6 @@ export default (sequelize, DataTypes) =>
       title: {
         type: DataTypes.STRING(200),
         allowNull: false
-      },
-      thumbnailImage: {
-        type: DataTypes.STRING(200),
-        allowNull: false
       }
     },
     { timestamps: false, freezeTableName: true }
