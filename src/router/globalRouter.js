@@ -1,8 +1,8 @@
 import express from 'express';
 import routes from '../routes';
-import { postLogin } from '../controllers/authController';
+import { postLogin } from '../controllers/userController';
 
-const authRouter = express.Router();
+const globalRouter = express.Router();
 /**
  * @swagger
  * tags:
@@ -12,7 +12,7 @@ const authRouter = express.Router();
 
 /**
  * @swagger
- * /auth/getToken:
+ * /getToken:
  *   post:
  *     summary: Returns token
  *     consumes:
@@ -42,6 +42,6 @@ const authRouter = express.Router();
  *               type: string
  */
 
-authRouter.post(routes.getToken, postLogin);
+globalRouter.post(routes.getToken, postLogin);
 
-export default authRouter;
+export default globalRouter;

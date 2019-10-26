@@ -1,6 +1,6 @@
 import express from 'express';
-import routes from '../../routes';
-import { findProjects } from '../../controllers/projectController';
+import routes from '../routes';
+import { findProjects } from '../controllers/projectController';
 
 const projectRouter = express.Router();
 
@@ -34,7 +34,7 @@ const projectRouter = express.Router();
 
 /**
  * @swagger
- * /api/projects:
+ * /projects:
  *   post:
  *     summary: Returns Project list
  *     tags: [Project]

@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -9,13 +6,12 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDefinition from './swagger';
 
-import routes from './routes';
-import authRouter from './router/authRouter';
-import helloRouter from './router/helloRouter';
-
 import './passport';
+
 import { authenticateJwt } from './middlewares';
-import apiRouter from './router/apiRouter';
+import routes from './routes';
+import globalRouter from './router/globalRouter';
+import projectRouter from './router/projectRouter';
 
 const app = express();
 
@@ -27,9 +23,8 @@ app.use(morgan('dev'));
 
 app.use(authenticateJwt);
 
-app.use(routes.auth, authRouter);
-app.use(routes.api, apiRouter);
-app.use(routes.hello, helloRouter);
+app.use(routes.projects, projectRouter);
+app.use(routes.home, globalRouter);
 
 const swaggerOption = {
   swaggerDefinition,
