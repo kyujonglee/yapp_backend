@@ -9,15 +9,18 @@ export const postLogin = async (req, res) => {
       body: { email, password }
     } = req;
     const user = await User.findOne({ where: { email } });
+    if(!user) {
+      throw Error('user not found');
+    }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
       const token = generateToken(user.id);
-      res.status(200).json({ token });
+      res.json({ token });
     } else {
-      res.status(204).json({ message: message.failId });
+      throw Error(message.dismatchPassword);
     }
   } catch (error) {
-    res.status(400).json({ error });
+    throw Error(error);
   }
 };
 

@@ -21,7 +21,6 @@ export const postJoin = async (req, res, next) => {
         age
       });
       next();
-    
   } catch (error) {
     res.status(400).json({ error });
   }
