@@ -13,6 +13,10 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.literal('NOW()')
+      },
+      seenFlag: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: 0
       }
     },
     { timestamps: false, freezeTableName: true }
