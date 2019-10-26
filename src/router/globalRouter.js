@@ -1,8 +1,53 @@
 import express from 'express';
 import routes from '../routes';
-import { postLogin } from '../controllers/userController';
+import { postLogin, postJoin } from '../controllers/userController';
 
 const globalRouter = express.Router();
+
+globalRouter.post(routes.getToken, postLogin);
+globalRouter.post(routes.join, postJoin, postLogin);
+
+/**
+ * @swagger
+ * tags:
+ *     name: 회원가입
+ */
+
+/**
+ * @swagger
+ * /join:
+ *   post:
+ *     summary: 회원가입 처리
+ *     consumes:
+ *       - application/json
+ *     tags : [회원가입]
+ *     parameters:
+ *         - in: body
+ *           name: email, password, name
+ *           schema:
+ *               type: object
+ *               example : {email: 'kyujong93@naver.com', password: 'password1234!', name: '이규종'}
+ *               required:
+ *               - email
+ *               - password
+ *               - name
+ *               properties:
+ *               email:
+ *                   type: string
+ *               password:
+ *                   type: string
+ *               name : 
+ *                   type : string
+ *     responses:
+ *       200:
+ *         description: 회원가입 후 로그인 로직을 수행하여 jwt token을 반환할 것임!
+ *         schema:
+ *           type: string
+ *           properties:
+ *             token:
+ *               type: string
+ */
+
 /**
  * @swagger
  * tags:
@@ -41,7 +86,5 @@ const globalRouter = express.Router();
  *             token:
  *               type: string
  */
-
-globalRouter.post(routes.getToken, postLogin);
 
 export default globalRouter;

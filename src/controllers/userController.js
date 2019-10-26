@@ -8,23 +8,21 @@ const saltRounds = 10;
 export const postJoin = async (req, res, next) => {
   try {
     const {
-      body: { email, password, nickname, age }
+      body: { email, password, name }
     } = req;
     const user = await User.findOne({ where: { email } });
     if (user) {
-      res.json({ message: 'duplicate Id' });
-      return;
+      throw Error(message.alreadyUser);
     }
     const passwordHash = await bcrypt.hash(password, saltRounds);
     await User.create({
       email,
       password: passwordHash,
-      nickname,
-      age
+      name
     });
     next();
   } catch (error) {
-    res.status(400).json({ error });
+    throw Error('cannot create user');
   }
 };
 
