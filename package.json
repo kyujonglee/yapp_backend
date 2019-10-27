@@ -8,14 +8,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --exec babel-node src/init.js",
-    "start": "NODE_ENV=production babel-node src/init.js",
+    "start": "NODE_ENV=production node build/init.js",
+    "build": "babel src --out-dir build",
     "test": "mocha"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
     "eslint": "^6.3.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.1.0",
@@ -24,9 +21,12 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
-    "swagger-jsdoc": "^3.4.0",
-    "swagger-ui-express": "^4.1.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.6.2",
     "@babel/runtime": "^7.6.3",
     "aws-sdk": "^2.544.0",
@@ -45,6 +45,8 @@
     "passport-jwt": "^4.0.0",
     "sequelize": "^5.19.1",
     "sequelize-cli": "^5.5.1",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "swagger-jsdoc": "^3.4.0",
+    "swagger-ui-express": "^4.1.2"
   }
 }
