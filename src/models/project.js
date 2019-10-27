@@ -15,8 +15,7 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.TEXT
       },
       thumbnailImage: {
-        type: DataTypes.STRING(200),
-        allowNull: false
+        type: DataTypes.STRING(200)
       },
       attachFile: {
         type: DataTypes.STRING(200)
