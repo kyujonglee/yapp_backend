@@ -1,6 +1,10 @@
-import dotenv from 'dotenv';
+"use strict";
 
-dotenv.config();
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
+_dotenv["default"].config();
 
 module.exports = {
   development: {
