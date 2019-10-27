@@ -37,7 +37,7 @@ export const postLogin = async (req, res) => {
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-      const token = generateToken(user.id);
+      const token = generateToken(user.userId);
       res.json({ token });
     } else {
       throw Error(message.dismatchPassword);

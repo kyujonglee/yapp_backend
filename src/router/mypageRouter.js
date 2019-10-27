@@ -1,10 +1,11 @@
 import express from 'express';
 import routes from '../routes';
 import { getSupports } from '../controllers/mypageController';
+import { onlyPrivate } from '../middlewares';
 
 const mypageRouter = express.Router();
 
-mypageRouter.get(routes.supports, getSupports);
+mypageRouter.get(routes.supports, onlyPrivate, getSupports);
 
 /**
  * @swagger

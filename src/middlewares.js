@@ -25,14 +25,13 @@ export const uploadAvatar = multerAvatar.single('avatar');
 
 export const authenticateJwt = (req, res, next) =>
   passport.authenticate('jwt', { sessions: false }, (error, user) => {
-    try {
-      if (user) {
-        req.user = user;
-      }
-      next();
-    } catch (err) {
-      res.status(400).json({ error: err });
+    if (error) {
+      res.status(400).json({ error });
     }
+    if (user) {
+      req.user = user;
+    }
+    next();
   })(req, res, next);
 
 export const onlyPublic = (req, res, next) => {

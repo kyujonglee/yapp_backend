@@ -13,7 +13,7 @@ const PROJECTS = '/projects';
 const PROJECT_ID = '/:projectId';
 
 const MYPAGE = '/mypage';
-const SUPPORTS = '/support';
+const SUPPORTS = '/supports';
 
 const routes = {
   home: HOME,

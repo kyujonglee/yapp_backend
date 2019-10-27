@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
+import passport from 'passport';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDefinition from './swagger';
@@ -23,6 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 app.use(authenticateJwt);
+
+app.use(passport.initialize());
 
 app.use(routes.projects, projectRouter);
 app.use(routes.mypage, mypageRouter);
