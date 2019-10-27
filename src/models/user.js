@@ -19,6 +19,9 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.STRING(50),
         allowNull: false
       },
+      profileImage : {
+        type : DataTypes.STRING(200)
+      },
       createAt: {
         type: DataTypes.DATE,
         allowNull: false,

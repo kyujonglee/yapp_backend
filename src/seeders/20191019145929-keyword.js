@@ -17,6 +17,30 @@ export default {
         },
         {
           name: 'android'
+        },
+        {
+          name: 'JAVA'
+        },
+        {
+          name: 'AI'
+        },
+        {
+          name: '해커톤'
+        },
+        {
+          name: 'IOT'
+        },
+        {
+          name: '공모전'
+        },
+        {
+          name: 'PYTHON'
+        },
+        {
+          name: '프론트'
+        },
+        {
+          name: '백엔드'
         }
       ],
       {}

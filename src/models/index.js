@@ -14,6 +14,7 @@ import ProjectRecruitRoleModel from './projectRecruitRole';
 import ApplicantPortfolioModel from './applicantPortfolio';
 
 const env = process.env.NODE_ENV || 'development';
+// eslint-disable-next-line import/no-dynamic-require
 const config = require(path.join(__dirname, '../', 'config', 'config.js'))[env];
 
 export const sequelize = new Sequelize(
@@ -45,6 +46,12 @@ const connectOneToMany = (Many, one, foreignKey) => {
   });
 };
 
+const connectOneToOne = (one, target, foreignKey) => {
+  one.belongsTo(target, {
+    foreignKey: { name: foreignKey, allowNull: false }
+  });
+};
+
 connectOneToMany(User, Portfolio, 'userId');
 connectOneToMany(User, Project, 'userId');
 connectOneToMany(User, Project, 'userId');
@@ -58,10 +65,10 @@ connectOneToMany(Project, ProjectRecruitRole, 'projectId');
 connectOneToMany(Role, ProjectRecruitRole, 'roleId');
 connectOneToMany(User, Applicant, 'userId');
 connectOneToMany(Project, Applicant, 'projectId');
+connectOneToOne(Applicant, Role, 'roleId');
 connectOneToMany(Project, ApplicantPortfolio, 'projectId');
 connectOneToMany(User, ApplicantPortfolio, 'userId');
 connectOneToMany(Portfolio, ApplicantPortfolio, 'portfolioId');
-
 
 // User.hasMany(Portfolio, { foreignKey: { name: 'userId', allowNull: false } });
 // Portfolio.belongsTo(User, { foreignKey: { name: 'userId', allowNull: false } });
