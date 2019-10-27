@@ -12,6 +12,9 @@ const API = '/api';
 const PROJECTS = '/projects';
 const PROJECT_ID = '/:projectId';
 
+const MYPAGE = '/mypage';
+const SUPPORTS = '/support';
+
 const routes = {
   home: HOME,
   hello: HELLO,
@@ -22,7 +25,9 @@ const routes = {
   getToken: GET_TOKEN,
   api: API,
   projects: PROJECTS,
-  projectId: PROJECT_ID
+  projectId: PROJECT_ID,
+  mypage: MYPAGE,
+  supports: SUPPORTS
 };
 
 export default routes;

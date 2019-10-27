@@ -34,3 +34,19 @@ export const authenticateJwt = (req, res, next) =>
       res.status(400).json({ error: err });
     }
   })(req, res, next);
+
+export const onlyPublic = (req, res, next) => {
+  if (req.user) {
+    throw Error('only public');
+  } else {
+    next();
+  }
+};
+
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    throw Error('user not found');
+  }
+};

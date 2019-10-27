@@ -1,8 +1,10 @@
 import express from 'express';
 import routes from '../routes';
-import { findProjects } from '../controllers/projectController';
+import { getSupports } from '../controllers/mypageController';
 
-const projectRouter = express.Router();
+const mypageRouter = express.Router();
+
+mypageRouter.get(routes.supports, getSupports);
 
 /**
  * @swagger
@@ -49,6 +51,5 @@ const projectRouter = express.Router();
  *               items:
  *                 $ref: '#/definitions/Project'
  */
-projectRouter.get(routes.home, findProjects);
 
-export default projectRouter;
+export default mypageRouter;

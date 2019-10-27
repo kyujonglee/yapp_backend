@@ -12,6 +12,7 @@ import { authenticateJwt } from './middlewares';
 import routes from './routes';
 import globalRouter from './router/globalRouter';
 import projectRouter from './router/projectRouter';
+import mypageRouter from './router/mypageRouter';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(morgan('dev'));
 app.use(authenticateJwt);
 
 app.use(routes.projects, projectRouter);
+app.use(routes.mypage, mypageRouter);
 app.use(routes.home, globalRouter);
 
 const swaggerOption = {
