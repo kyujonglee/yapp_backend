@@ -2,12 +2,36 @@ import express from 'express';
 import routes from '../routes';
 import { getSupports } from '../controllers/mypageController';
 import { onlyPrivate } from '../middlewares';
-import { getKeywords } from '../controllers/keywordController';
+import { getKeywords, chooseKeyword } from '../controllers/keywordController';
 
 const mypageRouter = express.Router();
 
 mypageRouter.get(routes.supports, onlyPrivate, getSupports);
 mypageRouter.get(routes.keywords, getKeywords);
+mypageRouter.put(
+  `${routes.keywords}${routes.keywordId}`,
+  onlyPrivate,
+  chooseKeyword
+);
+
+/**
+ * @swagger
+ * /mypage/keywords/{keywordId}:
+ *   put:
+ *     summary: 사용자가 keyword를 등록
+ *     tags: [Keyword]
+ *     parameters: 
+ *         - in : path
+ *           name: keywordId
+ *           schema:
+ *              type: integer
+ *           required: true
+ *     responses:
+ *       200:
+ *         description: Keyword list
+ *         schema:
+ *           type: boolean
+ */
 
 /**
  * @swagger

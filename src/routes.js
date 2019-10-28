@@ -15,6 +15,7 @@ const PROJECT_ID = '/:projectId';
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
 const KEYWORDS = '/keywords';
+const KEYWORD_ID = '/:keywordId';
 
 const routes = {
   home: HOME,
@@ -29,7 +30,8 @@ const routes = {
   projectId: PROJECT_ID,
   mypage: MYPAGE,
   supports: SUPPORTS,
-  keywords: KEYWORDS
+  keywords: KEYWORDS,
+  keywordId: KEYWORD_ID
 };
 
 export default routes;
