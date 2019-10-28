@@ -1,6 +1,6 @@
 export default (sequelize) =>
   sequelize.define(
-    'tbl_project_keyword',
+    'projectKeyword',
     {},
     { timestamps: false, freezeTableName: true }
   );

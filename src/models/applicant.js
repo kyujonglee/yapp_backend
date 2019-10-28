@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_applicant',
+    'applicant',
     {
       name: {
         type: DataTypes.STRING(100),

@@ -4,7 +4,7 @@ export default {
   up: async queryInterface => {
     const saltRounds = 10;
     return queryInterface.bulkInsert(
-      'tbl_user',
+      'user',
       [
         {
           name: '이규종',
@@ -21,6 +21,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('tbl_user', null, {});
+    return queryInterface.bulkDelete('user', null, {});
   }
 };

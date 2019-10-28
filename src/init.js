@@ -1,4 +1,4 @@
-import '@babel/polyfill'
+import '@babel/polyfill';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 4000;
 
 const handleListening = () => {
   console.log(`✅ starting server on 🏠 http://localhost:${PORT}`);
-  sequelize.sync();
+  sequelize.sync({ force: true });
 };
 
 app.listen(PORT, handleListening);

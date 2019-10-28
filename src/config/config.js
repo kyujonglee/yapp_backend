@@ -5,7 +5,7 @@ dotenv.config();
 module.exports = {
   development: {
     username: 'toys',
-    password: 'toystoys',
+    password: 'toys',
     database: 'toys_db',
     host: '127.0.0.1',
     dialect: 'mysql',

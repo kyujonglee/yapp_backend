@@ -1,7 +1,7 @@
 export default {
   up: async queryInterface => {
     return queryInterface.bulkInsert(
-      'tbl_role',
+      'role',
       [
         {
           name: '기획자'
@@ -20,6 +20,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('tbl_role', null, {});
+    return queryInterface.bulkDelete('role', null, {});
   }
 };

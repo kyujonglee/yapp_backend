@@ -1,12 +1,12 @@
 export default {
   up: async queryInterface => {
     return queryInterface.bulkInsert(
-      'tbl_project',
+      'project',
       [
         {
           userId: 1,
           title: '해커톤 팀원 모집',
-          content: '2019 yapp 해커톤에 참여하실 분들 구합니다. '
+          content: '2019 yapp 해커톤에 참여하실 분들 구합니다. ',
         },
         {
           userId: 2,
@@ -18,6 +18,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('tbl_project', null, {});
+    return queryInterface.bulkDelete('project', null, {});
   }
 };

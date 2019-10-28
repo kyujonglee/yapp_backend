@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_project_cart',
+    'projectCart',
     {
       title: {
         type: DataTypes.STRING(200),

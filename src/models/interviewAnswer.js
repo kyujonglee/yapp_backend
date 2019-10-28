@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_interview_answer',
+    'interviewAnswer',
     {
       content: {
         type: DataTypes.TEXT,

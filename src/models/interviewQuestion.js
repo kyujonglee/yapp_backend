@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_interview_question',
+    'interviewQuestion',
     {
       sn: {
         type: DataTypes.INTEGER,

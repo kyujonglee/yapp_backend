@@ -12,6 +12,7 @@ import InterviewQuestionModel from './interviewQuestion';
 import RoleModel from './role';
 import ProjectRecruitRoleModel from './projectRecruitRole';
 import ApplicantPortfolioModel from './applicantPortfolio';
+import BookmarkModel from './bookmark';
 
 const env = process.env.NODE_ENV || 'development';
 // eslint-disable-next-line import/no-dynamic-require
@@ -36,6 +37,7 @@ export const InterviewQuestion = InterviewQuestionModel(sequelize, Sequelize);
 export const Role = RoleModel(sequelize, Sequelize);
 export const ProjectRecruitRole = ProjectRecruitRoleModel(sequelize, Sequelize);
 export const ApplicantPortfolio = ApplicantPortfolioModel(sequelize, Sequelize);
+export const Bookmark = BookmarkModel(sequelize, Sequelize);
 
 const connectOneToMany = (Many, one, foreignKey) => {
   Many.hasMany(one, {
@@ -65,67 +67,9 @@ connectOneToMany(Project, ProjectRecruitRole, 'projectId');
 connectOneToMany(Role, ProjectRecruitRole, 'roleId');
 connectOneToMany(User, Applicant, 'userId');
 connectOneToMany(Project, Applicant, 'projectId');
+connectOneToMany(User, Bookmark, 'userId');
+connectOneToMany(Project, Bookmark, 'projectId');
 connectOneToOne(Applicant, Role, 'roleId');
 connectOneToMany(Project, ApplicantPortfolio, 'projectId');
 connectOneToMany(User, ApplicantPortfolio, 'userId');
 connectOneToMany(Portfolio, ApplicantPortfolio, 'portfolioId');
-
-// User.hasMany(Portfolio, { foreignKey: { name: 'userId', allowNull: false } });
-// Portfolio.belongsTo(User, { foreignKey: { name: 'userId', allowNull: false } });
-
-// User.hasMany(Project, { foreignKey: { name: 'writerId', allowNull: false } });
-// Project.belongsTo(User, { foreignKey: { name: 'writerId', allowNull: false } });
-
-// User.hasMany(ProjectCart, { foreignKey: { name: 'userId', allowNull: false } });
-// ProjectCart.belongsTo(User, {
-//   foreignKey: { name: 'userId', allowNull: false }
-// });
-
-// Project.hasMany(ProjectCart, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-// ProjectCart.belongsTo(Project, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-
-// User.hasMany(InterviewAnswer, {
-//   foreignKey: { name: 'userId', allowNull: false }
-// });
-// InterviewAnswer.belongsTo(User, {
-//   foreignKey: { name: 'userId', allowNull: false }
-// });
-
-// Project.hasMany(InterviewAnswer, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-// InterviewAnswer.belongsTo(Project, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-
-// Project.hasMany(ProjectKeyword, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-// ProjectKeyword.belongsTo(Project, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-
-// Keyword.hasMany(ProjectKeyword, {
-//   foreignKey: { name: 'keywordId', allowNull: false }
-// });
-// ProjectKeyword.belongsTo(Keyword, {
-//   foreignKey: { name: 'keywordId', allowNull: false }
-// });
-
-// Project.hasMany(InterviewQuestion, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-// InterviewQuestion.belongsTo(Project, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-
-// Project.hasMany(ProjectRecruitRole, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });
-// ProjectRecruitRole.belongsTo(Project, {
-//   foreignKey: { name: 'projectId', allowNull: false }
-// });

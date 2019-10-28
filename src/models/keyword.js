@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_keyword',
+    'keyword',
     {
       keywordId: {
         type: DataTypes.INTEGER,

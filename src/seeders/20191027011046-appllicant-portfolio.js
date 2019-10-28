@@ -1,7 +1,7 @@
 export default {
   up: async queryInterface => {
     return queryInterface.bulkInsert(
-      'tbl_applicant_portfolio',
+      'applicantPortfolio',
       [
         {
           projectId: 1,
@@ -13,6 +13,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('tbl_applicant_portfolio', null, {});
+    return queryInterface.bulkDelete('applicantPortfolio', null, {});
   }
 };

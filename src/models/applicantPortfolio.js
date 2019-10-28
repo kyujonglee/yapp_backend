@@ -1,6 +1,6 @@
 export default (sequelize) =>
   sequelize.define(
-    'tbl_applicant_portfolio',
+    'applicantPortfolio',
     {},
     { timestamps: false, freezeTableName: true }
   );

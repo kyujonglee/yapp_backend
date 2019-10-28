@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_user',
+    'user',
     {
       userId: {
         type: DataTypes.INTEGER,

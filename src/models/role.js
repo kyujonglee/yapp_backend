@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_role',
+    'role',
     {
       roleId: {
         type: DataTypes.INTEGER,

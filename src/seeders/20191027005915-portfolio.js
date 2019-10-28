@@ -1,7 +1,7 @@
 export default {
   up: async queryInterface => {
     return queryInterface.bulkInsert(
-      'tbl_portfolio',
+      'portfolio',
       [
         {
           userId: 2,
@@ -20,6 +20,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('tbl_portfolio', null, {});
+    return queryInterface.bulkDelete('portfolio', null, {});
   }
 };

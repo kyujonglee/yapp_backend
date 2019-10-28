@@ -1,7 +1,7 @@
 export default {
   up: async queryInterface => {
     return queryInterface.bulkInsert(
-      'tbl_project_keyword',
+      'projectKeyword',
       [
         {
           projectId: 1,
@@ -20,6 +20,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('tbl_project_keyword', null, {});
+    return queryInterface.bulkDelete('projectKeyword', null, {});
   }
 };

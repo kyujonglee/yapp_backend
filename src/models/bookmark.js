@@ -1,6 +1,6 @@
 export default (sequelize) =>
   sequelize.define(
-    'projectRecruitKeyword',
+    'bookmark',
     {},
     { timestamps: false, freezeTableName: true }
   );

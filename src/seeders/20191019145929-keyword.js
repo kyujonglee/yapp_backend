@@ -1,7 +1,7 @@
 export default {
   up: async queryInterface => {
     return queryInterface.bulkInsert(
-      'tbl_keyword',
+      'keyword',
       [
         {
           name: '웹서비스'
@@ -47,6 +47,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('tbl_keyword', null, {});
+    return queryInterface.bulkDelete('keyword', null, {});
   }
 };

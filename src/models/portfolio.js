@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'tbl_portfolio',
+    'portfolio',
     {
       portfolioId: {
         type: DataTypes.INTEGER,
