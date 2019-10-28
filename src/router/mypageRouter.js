@@ -2,55 +2,45 @@ import express from 'express';
 import routes from '../routes';
 import { getSupports } from '../controllers/mypageController';
 import { onlyPrivate } from '../middlewares';
+import { getKeywords } from '../controllers/keywordController';
 
 const mypageRouter = express.Router();
 
 mypageRouter.get(routes.supports, onlyPrivate, getSupports);
+mypageRouter.get(routes.keywords, getKeywords);
 
 /**
  * @swagger
  * tags:
- *   name: Project
- *   description: Project management
+ *   name: Keyword
  * definitions:
- *   Project:
+ *   Keyword:
  *     type: object
  *     properties:
- *       projectId:
+ *       keywordId:
  *         type: integer
  *         description: ObjectID
- *       title:
+ *       name:
  *         type: string
- *         description: 제목
- *       content:
- *         type: string
- *         description: 내용
- *       thumbnailImage:
- *         type: string
- *       attachFile:
- *          type: string
- *       viewCnt:
- *          type: integer
- *       createAt:
- *          type: date
+ *         description: 키워드명
  */
 
 /**
  * @swagger
- * /projects:
+ * /mypage/keywords:
  *   get:
- *     summary: Returns Project list
- *     tags: [Project]
+ *     summary: Returns keyword list
+ *     tags: [Keyword]
  *     responses:
  *       200:
- *         description: Project list
+ *         description: Keyword list
  *         schema:
  *           type: object
  *           properties:
- *             project:
+ *             keyword:
  *               type: array
  *               items:
- *                 $ref: '#/definitions/Project'
+ *                 $ref: '#/definitions/Keyword'
  */
 
 export default mypageRouter;
