@@ -8,7 +8,7 @@ export default {
     version: '1.0.0',
     description: 'Make For node js test.'
   },
-  host: process.env.NODE_ENV ? 'yapptoys.herokuapp.com:4000' : 'localhost:4000',
+  host: process.env.NODE_ENV ? 'yapptoys.herokuapp.com' : 'localhost:4000',
   basePath: '/',
   contact: {
     email: 'kyujong93@naver.com'
