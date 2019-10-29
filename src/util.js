@@ -12,3 +12,15 @@ export const parseAndUpdateArray = (arr, id) => {
   }
   return `${id}`;
 };
+
+export const parseAndDeleteArray = (arr, id) => {
+  if (arr) {
+    let array = arr.split(',');
+    if (array.includes(id)) {
+      array = array.filter(ele => ele !== id).join(',');
+      return array;
+    }
+    return arr;
+  }
+  return null;
+};
