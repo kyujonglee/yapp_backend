@@ -1,13 +1,17 @@
-import { Keyword, User } from '../models';
+import { User } from '../models';
 import message from '../message';
 import { parseAndUpdateArray, parseAndDeleteArray } from '../util';
+import { getKeywordsDbAndUser } from '../services/keywordService';
 
-export const getKeywords = async (req, res) => {
+export const getMypageKeywords = async (req, res) => {
   try {
-    const keywords = await Keyword.findAll({});
+    const {
+      user: { userId }
+    } = req;
+    const keywords = await getKeywordsDbAndUser(userId);
     res.json(keywords);
   } catch (error) {
-    res.json({ keyword: [] });
+    throw Error();
   }
 };
 

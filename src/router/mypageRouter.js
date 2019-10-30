@@ -3,15 +3,15 @@ import routes from '../routes';
 import { getSupports } from '../controllers/mypageController';
 import { onlyPrivate } from '../middlewares';
 import {
-  getKeywords,
   chooseKeyword,
-  deleteKeyword
+  deleteKeyword,
+  getMypageKeywords
 } from '../controllers/keywordController';
 
 const mypageRouter = express.Router();
 
 mypageRouter.get(routes.supports, onlyPrivate, getSupports);
-mypageRouter.get(routes.keywords, getKeywords);
+mypageRouter.get(routes.keywords, onlyPrivate, getMypageKeywords);
 mypageRouter.post(
   `${routes.keywords}${routes.keywordId}`,
   onlyPrivate,
@@ -81,7 +81,7 @@ mypageRouter.delete(
  * @swagger
  * /mypage/keywords:
  *   get:
- *     summary: Returns keyword list
+ *     summary: Returns Keyword list
  *     tags: [Keyword]
  *     responses:
  *       200:
@@ -89,10 +89,28 @@ mypageRouter.delete(
  *         schema:
  *           type: object
  *           properties:
- *             keyword:
+ *             keywordFromDb:
  *               type: array
  *               items:
  *                 $ref: '#/definitions/Keyword'
+ *               example : [{keywordId: 1, name: '개발자'}]
+ *             keywordFromUser:
+ *                type: array
+ *                items:
+ *                    type: integer
+ *                    example: 2, 3, 4
  */
 
 export default mypageRouter;
+
+//  *            schema:
+//  *             type: object
+//  *             properties:
+//  *                keywordFromDb:
+//  *                    type: array
+//  *                    items:
+//  *                      $ref: '#/definitions/Keyword'
+//  *                keywordFromUser:
+//  *                    type: array
+//  *                    items:
+//  *                        type: integer
