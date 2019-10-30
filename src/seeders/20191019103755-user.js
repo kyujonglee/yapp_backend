@@ -9,12 +9,14 @@ export default {
         {
           name: '이규종',
           email: 'kyujong93@naver.com',
-          password: await bcrypt.hash('toddlf20', saltRounds)
+          password: await bcrypt.hash('toddlf20', saltRounds),
+          keywords: '4,2,9'
         },
         {
           name: '이규종2',
           email: 'kyujong93@gmail.com',
-          password: await bcrypt.hash('toddlf20', saltRounds)
+          password: await bcrypt.hash('toddlf20', saltRounds),
+          keywords: '1,5,10'
         }
       ],
       {}
