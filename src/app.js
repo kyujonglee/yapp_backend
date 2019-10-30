@@ -14,6 +14,7 @@ import routes from './routes';
 import globalRouter from './router/globalRouter';
 import projectRouter from './router/projectRouter';
 import mypageRouter from './router/mypageRouter';
+import helloRouter from './router/helloRouter';
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(passport.initialize());
 app.use(routes.projects, projectRouter);
 app.use(routes.mypage, mypageRouter);
 app.use(routes.home, globalRouter);
+app.use(routes.hello, helloRouter);
 
 const swaggerOption = {
   swaggerDefinition,

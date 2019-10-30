@@ -1,12 +1,17 @@
 import express from 'express';
 import routes from '../routes';
 import { getSupports } from '../controllers/mypageController';
-import { onlyPrivate } from '../middlewares';
+import { getPortfolio, addPorfolio, updatePortfolio, deletePortfolio } from '../controllers/mypageController';
+import { onlyPublic, onlyPrivate } from '../middlewares';
 
 const mypageRouter = express.Router();
 
 mypageRouter.get(routes.supports, onlyPrivate, getSupports);
 
+mypageRouter.get(routes.portfolio, onlyPrivate, getPortfolio);
+mypageRouter.post(routes.portfolio, onlyPrivate, addPorfolio);
+mypageRouter.put(routes.portfolio, onlyPrivate, updatePortfolio);
+mypageRouter.delete(routes.portfolio, onlyPrivate, deletePortfolio);
 /**
  * @swagger
  * tags:
