@@ -16,7 +16,7 @@ export const getMypageKeywords = async (req, res) => {
 export const updateKeyword = async (req, res) => {
   try {
     const {
-      body: keywords,
+      body: { keywords },
       user: { userId }
     } = req;
     await User.update(

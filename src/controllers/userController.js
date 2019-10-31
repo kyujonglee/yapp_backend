@@ -8,8 +8,11 @@ const saltRounds = 10;
 export const postJoin = async (req, res, next) => {
   try {
     const {
-      body: { email, password, name }
+      body: { email, password, password2, name }
     } = req;
+    if (password !== password2) {
+      throw Error('비밀번호가 일치하지 않습니다.');
+    }
     const user = await User.findOne({ where: { email } });
     if (user) {
       throw Error(message.alreadyUser);
@@ -53,5 +56,21 @@ export const getUser = (req, res) => {
     res.json({ user });
   } else {
     res.json({ message: '해당 사용자가 존재하지 않습니다.' });
+  }
+};
+
+export const checkEmail = async (req, res) => {
+  try {
+    const {
+      body: { email }
+    } = req;
+    const user = await User.findOne({ where: { email } });
+    if (user) {
+      res.json(false);
+    } else {
+      res.json(true);
+    }
+  } catch (error) {
+    throw Error();
   }
 };
