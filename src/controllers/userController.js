@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { User } from '../models';
+import { User, Portfolio } from '../models';
 import { generateToken } from '../util';
 import message from '../message';
 
@@ -72,5 +72,17 @@ export const checkEmail = async (req, res) => {
     }
   } catch (error) {
     throw Error();
+  }
+};
+
+export const getUserPortfolios = async (req, res) => {
+  try {
+    const {
+      user: { userId }
+    } = req;
+    const portfolios = await Portfolio.findAll({ where: { userId } });
+    res.json({ portfolios });
+  } catch (error) {
+    res.json({ portfolios: [] });
   }
 };

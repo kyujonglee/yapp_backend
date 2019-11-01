@@ -8,6 +8,9 @@ const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
 const CHECK_EMAIL = '/check-email';
 
+const USER = '/user';
+const PORTFOLIOS = '/portfolios'
+
 const API = '/api';
 
 const PROJECTS = '/projects';
@@ -33,7 +36,9 @@ const routes = {
   supports: SUPPORTS,
   keywords: KEYWORDS,
   keywordId: KEYWORD_ID,
-  checkEmail: CHECK_EMAIL
+  checkEmail: CHECK_EMAIL,
+  user: USER,
+  portfolios: PORTFOLIOS
 };
 
 export default routes;
