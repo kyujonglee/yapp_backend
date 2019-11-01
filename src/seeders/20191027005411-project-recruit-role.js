@@ -1,7 +1,7 @@
 export default {
   up: async queryInterface => {
     return queryInterface.bulkInsert(
-      'projectRecruitKeyword',
+      'projectRecruitRole',
       [
         {
           projectId: 1,
@@ -16,6 +16,6 @@ export default {
     );
   },
   down: queryInterface => {
-    return queryInterface.bulkDelete('projectRecruitKeyword', null, {});
+    return queryInterface.bulkDelete('projectRecruitRole', null, {});
   }
 };

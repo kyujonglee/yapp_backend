@@ -1,6 +1,6 @@
-export default (sequelize) =>
+export default sequelize =>
   sequelize.define(
-    'projectRecruitKeyword',
+    'projectRecruitRole',
     {},
     { timestamps: false, freezeTableName: true }
   );
