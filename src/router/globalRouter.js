@@ -18,6 +18,37 @@ globalRouter.get(routes.me, onlyPrivate, getUser);
 /**
  * @swagger
  * tags:
+ *     name: User
+ */
+
+/**
+ * @swagger
+ * /me:
+ *  get:
+ *     summary: 유저에 대한 개인정보
+ *     tags: [User]
+ *     responses:
+ *          200:
+ *              description: User에 대한 정보
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      user:
+ *                          type: object
+ *                          properties:
+ *                              userId:
+ *                                  type: integer
+ *                                  example: 1
+ *                              email:
+ *                                  type: string
+ *                                  example: kyujong93@naver.com
+ *                              
+ *                      
+ */
+
+/**
+ * @swagger
+ * tags:
  *     name: 이메일 중복 체크
  */
 

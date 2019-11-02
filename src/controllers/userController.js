@@ -54,7 +54,8 @@ export const postLogin = async (req, res) => {
 export const getUser = (req, res) => {
   const { user } = req;
   if (user) {
-    res.json({ user });
+    const { userId, email, name, profileImage } = user;
+    res.json({ user: { userId, email, name, profileImage } });
   } else {
     res.json({ message: '해당 사용자가 존재하지 않습니다.' });
   }
