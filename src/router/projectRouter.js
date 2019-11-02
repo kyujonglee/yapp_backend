@@ -2,20 +2,63 @@ import express from 'express';
 import routes from '../routes';
 import {
   findProjects,
+  enrollProject,
   getProjectQuestion
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
-import { onlyPrivate } from '../middlewares';
+import { onlyPrivate, uploadProjectImage } from '../middlewares';
 
 const projectRouter = express.Router();
 
 projectRouter.get(routes.home, findProjects);
+projectRouter.post(routes.home, onlyPrivate, uploadProjectImage, enrollProject);
 projectRouter.get(`${routes.projectId}${routes.question}`, getProjectQuestion);
 projectRouter.post(
   `${routes.projectId}${routes.applicants}`,
   onlyPrivate,
   enrollApplicant
 );
+
+/**
+ * @swagger
+ * /projects:
+ *   post:
+ *     summary: 모집글 작성
+ *     tags: [Project]
+ *     parameters: 
+ *        - in: body
+ *          name: 프로젝트 정보
+ *          schema:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                  content:
+ *                      type: string
+ *                  role:
+ *                      type: integer
+ *                  step:
+ *                      type: integer
+ *                  location:
+ *                      type: integer
+ *                  thumbnailImage:
+ *                      type: string
+ *                  
+ *          example: { 
+ *              title: '안녕하세요 타이틀입니다',
+ *              content: '안녕하세요 내용입니다.',
+ *              role: 5,
+ *              step: 1,
+ *              location: 2,
+ *              thumbnailImage: 'http://ncloud'
+ *          }
+ *     responses:
+ *       200:
+ *         description: 모집글 작성 성공
+ *         schema:
+ *           type: boolean
+ *           example: true
+ */
 
 /**
  * @swagger
