@@ -8,8 +8,11 @@ const projectRouter = express.Router();
 
 projectRouter.get(routes.home, findProjects);
 projectRouter.get(routes.projectId, getProject);
-
-projectRouter.post(`${routes.projectId}${routes.applicants}`, onlyPrivate, enrollApplicant);
+projectRouter.post(
+  `${routes.projectId}${routes.applicants}`,
+  onlyPrivate,
+  enrollApplicant
+);
 
 /**
  * @swagger
@@ -29,7 +32,7 @@ projectRouter.post(`${routes.projectId}${routes.applicants}`, onlyPrivate, enrol
  *         schema:
  *           type: object
  *           properties:
- *              projectId: 
+ *              projectId:
  *                  type: integer
  *              title:
  *                  type: string
@@ -49,20 +52,20 @@ projectRouter.post(`${routes.projectId}${routes.applicants}`, onlyPrivate, enrol
  *                  type: array
  *                  items:
  *                      type: object
- *                      properties:  
- *                      id: 
+ *                      properties:
+ *                      id:
  *                          type: integer
  *                      roleId:
  *                          type: integer
  *                      name:
  *                          type: string
  *                      example : {id: 1, roleId: 1, name: '기획자'}
-  *              interviewQuestions:
+ *              interviewQuestions:
  *                  type: array
  *                  items:
  *                      type: object
- *                      properties:  
- *                      sn: 
+ *                      properties:
+ *                      sn:
  *                          type: integer
  *                      content:
  *                          type: string

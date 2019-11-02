@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
-import { User, Portfolio } from '../models';
+import Sequelize from 'sequelize';
+import { User, Portfolio, ProjectKeyword, Keyword } from '../models';
 import { generateToken } from '../util';
 import message from '../message';
 
@@ -84,5 +85,27 @@ export const getUserPortfolios = async (req, res) => {
     res.json({ portfolios });
   } catch (error) {
     res.json({ portfolios: [] });
+  }
+};
+export const getUserKeywords = async (req, res) => {
+  try {
+    const {
+      user: { userId }
+    } = req;
+    const user = await User.findOne({ where: { userId } });
+    const userKeywords = user.keywords.split(',').map(val => parseInt(val, 10));
+    const { Op } = Sequelize;
+    let keywords = await Keyword.findAll({
+      where: { keywordId: { [Op.in]: userKeywords } },
+      include: [{ model: ProjectKeyword }],
+      order: [['keywordId']]
+    });
+    keywords = keywords.map(val => ({
+      ...val.dataValues,
+      count: val.projectKeywords.length
+    }));
+    res.json({ keywords });
+  } catch (error) {
+    res.json({ keywords: [] });
   }
 };

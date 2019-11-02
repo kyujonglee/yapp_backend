@@ -9,7 +9,7 @@ export const findProjects = async (req, res) => {
   try {
     const projects = await Project.findAll({
       order: [['createAt', 'DESC']],
-      limit: 6
+      limit: 12
     });
     res.json({ projects });
   } catch (error) {

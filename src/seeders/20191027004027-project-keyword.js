@@ -14,7 +14,10 @@ export default {
         {
           projectId: 1,
           keywordId: 10
-        }
+        },
+        { projectId: 2, keywordId: 2 },
+        { projectId: 2, keywordId: 8 },
+        { projectId: 2, keywordId: 10 }
       ],
       {}
     );
