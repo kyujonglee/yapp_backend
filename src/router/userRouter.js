@@ -9,7 +9,7 @@ import { onlyPrivate } from '../middlewares';
 const userRouter = express.Router();
 
 userRouter.get(routes.portfolios, onlyPrivate, getUserPortfolios);
-userRouter.get(routes.keywords, getUserKeywords);
+userRouter.get(routes.keywords, onlyPrivate, getUserKeywords);
 
 /**
  * @swagger

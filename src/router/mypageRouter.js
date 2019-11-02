@@ -23,10 +23,14 @@ mypageRouter.put(routes.keywords, onlyPrivate, updateKeyword);
  *         - in: body
  *           name: keywords
  *           schema:
- *               type: array
- *               example : [1, 2, 5]
- *               items:
- *                  type: integer
+ *               type: object
+ *               properties:
+ *                  keywords:
+ *                    type: array
+ *                    items:
+ *                        type: integer
+ *                    example : [1, 2, 5]
+ *                    
  *     responses:
  *       200:
  *         description: success/fail

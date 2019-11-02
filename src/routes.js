@@ -3,6 +3,7 @@ const HELLO = '/hello';
 const JOIN = '/join';
 const LOGIN = '/login';
 const SEARCH = '/search';
+const ME = '/me';
 
 const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
@@ -41,7 +42,8 @@ const routes = {
   checkEmail: CHECK_EMAIL,
   user: USER,
   portfolios: PORTFOLIOS,
-  applicants: APPLICANTS
+  applicants: APPLICANTS,
+  me: ME
 };
 
 export default routes;

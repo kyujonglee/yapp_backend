@@ -16,6 +16,83 @@ projectRouter.post(
 
 /**
  * @swagger
+ * tags:
+ *    name: Applicant
+ */
+
+/**
+ * @swagger
+ * /projects/{projectId}/applicants:
+ *   post:
+ *     summary: 해당 프로젝트에 지원하기
+ *     tags: [Applicant]
+ *     parameters:
+ *       - in: path
+ *         name: projectId
+ *         schema:
+ *              type: integer
+ *         required: true
+ *         example: 1
+ *       - in: body
+ *         name: role, portfolios, answers
+ *         schema:
+ *             type: object
+ *             properties:
+ *               role:
+ *                   type: integer
+ *               portfolios:
+ *                   type: array
+ *                   items:
+ *                      type: integer
+ *                   example: [1, 2]
+ *               answers :
+ *                   type : array
+ *                   items: 
+ *                     type: object
+ *                     properties:
+ *                         sn:
+ *                             type: integer
+ *                         content:
+ *                             type: string
+ *                     example: {"sn": 1, "content": "네 참여할 수 있습니다."}
+ *     responses:
+ *       200:
+ *         description: Project detail
+ *         schema:
+ *           type: object
+ *           properties:
+ *              projectId:
+ *                  type: integer
+ *              title:
+ *                  type: string
+ *              content:
+ *                  type: string
+ *              thumbnailImage:
+ *                  type: string
+ *              attachFile:
+ *                  type: string
+ *              role: 
+ *                  type: integer
+ *              viewCnt:
+ *                  type: integer
+ *              createAt:
+ *                  type: date
+ *              userId:
+ *                  type: string
+ *              interviewQuestions:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                      sn:
+ *                          type: integer
+ *                      content:
+ *                          type: string
+ *                      example : {sn: 1, content: '일주일에 1회 시간내서 참여 가능하신가요?'}
+ */
+
+/**
+ * @swagger
  * /projects/{projectId}:
  *   get:
  *     summary: Returns Project detail
@@ -42,24 +119,14 @@ projectRouter.post(
  *                  type: string
  *              attachFile:
  *                  type: string
+ *              role: 
+ *                  type: integer
  *              viewCnt:
  *                  type: integer
  *              createAt:
  *                  type: date
  *              userId:
  *                  type: string
- *              projectRecruitRoles:
- *                  type: array
- *                  items:
- *                      type: object
- *                      properties:
- *                      id:
- *                          type: integer
- *                      roleId:
- *                          type: integer
- *                      name:
- *                          type: string
- *                      example : {id: 1, roleId: 1, name: '기획자'}
  *              interviewQuestions:
  *                  type: array
  *                  items:
@@ -90,6 +157,8 @@ projectRouter.post(
  *       content:
  *         type: string
  *         description: 내용
+ *       role:
+ *          type: integer
  *       thumbnailImage:
  *         type: string
  *       attachFile:
@@ -104,7 +173,7 @@ projectRouter.post(
  * @swagger
  * /projects:
  *   get:
- *     summary: Returns Project list
+ *     summary: 메인페이지 프로젝트 limit 12개 불러오기
  *     tags: [Project]
  *     responses:
  *       200:

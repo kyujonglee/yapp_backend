@@ -1,12 +1,19 @@
 import express from 'express';
 import routes from '../routes';
-import { postLogin, postJoin, checkEmail } from '../controllers/userController';
+import {
+  postLogin,
+  postJoin,
+  checkEmail,
+  getUser
+} from '../controllers/userController';
+import { onlyPrivate, onlyPublic } from '../middlewares';
 
 const globalRouter = express.Router();
 
-globalRouter.post(routes.getToken, postLogin);
-globalRouter.post(routes.join, postJoin, postLogin);
+globalRouter.post(routes.getToken, onlyPublic, postLogin);
+globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
 globalRouter.post(routes.checkEmail, checkEmail);
+globalRouter.get(routes.me, onlyPrivate, getUser);
 
 /**
  * @swagger

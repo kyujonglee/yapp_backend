@@ -1,9 +1,4 @@
-import {
-  Project,
-  ProjectRecruitRole,
-  Role,
-  InterviewQuestion
-} from '../models';
+import { Project, InterviewQuestion } from '../models';
 
 export const findProjects = async (req, res) => {
   try {
@@ -22,21 +17,10 @@ export const getProject = async (req, res) => {
     const {
       params: { projectId }
     } = req;
-    let project = await Project.findOne({
+    const project = await Project.findOne({
       where: { projectId },
-      include: [
-        { model: ProjectRecruitRole, include: [{ model: Role }] },
-        { model: InterviewQuestion }
-      ]
+      include: [{ model: InterviewQuestion }]
     });
-    project = {
-      ...project.dataValues,
-      projectRecruitRoles: project.projectRecruitRoles.map(item => ({
-        id: item.id,
-        roleId: item.roleId,
-        name: item.role.name
-      }))
-    };
     res.json({ project });
   } catch (error) {
     console.log(error);
