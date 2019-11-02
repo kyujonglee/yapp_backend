@@ -16,7 +16,7 @@ globalRouter.post(routes.checkEmail, checkEmail);
 
 /**
  * @swagger
- * /check-email:
+ * /checkEmail:
  *     post:
  *         summary: email 중복체크
  *         tags: [이메일 중복 체크]

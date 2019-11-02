@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import Sequelize from 'sequelize';
-import { User, ProjectKeyword, Keyword } from '../models';
+import { User, Portfolio, ProjectKeyword, Keyword } from '../models';
 import { generateToken } from '../util';
 import message from '../message';
 
@@ -76,6 +76,17 @@ export const checkEmail = async (req, res) => {
   }
 };
 
+export const getUserPortfolios = async (req, res) => {
+  try {
+    const {
+      user: { userId }
+    } = req;
+    const portfolios = await Portfolio.findAll({ where: { userId } });
+    res.json({ portfolios });
+  } catch (error) {
+    res.json({ portfolios: [] });
+  }
+};
 export const getUserKeywords = async (req, res) => {
   try {
     const {
