@@ -7,7 +7,13 @@ export default {
           projectId: 1,
           userId: 2,
           name : '이규종2',
-          roleId: 3,
+          role: 4,
+        },
+        {
+          projectId: 1,
+          userId: 3,
+          name : 'gogogo',
+          role: 1,
         }
       ],
       {}

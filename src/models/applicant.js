@@ -6,6 +6,9 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.STRING(100),
         allowNull: false
       },
+      role: {
+        type: DataTypes.INTEGER
+      },
       profileImage: {
         type: DataTypes.STRING(200)
       },

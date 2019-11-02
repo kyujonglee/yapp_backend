@@ -13,7 +13,7 @@ export const enrollApplicant = async (req, res) => {
     const {
       params: { projectId },
       user: { userId },
-      body: { roleId, portfolios, answers }
+      body: { role, portfolios, answers }
     } = req;
     const user = await User.findOne({ where: { userId } });
     const { name, profileImage } = user;
@@ -25,7 +25,7 @@ export const enrollApplicant = async (req, res) => {
           userId,
           name,
           profileImage,
-          roleId
+          role
         },
         { transaction }
       );

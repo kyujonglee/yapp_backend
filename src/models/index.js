@@ -9,8 +9,6 @@ import ApplicantModel from './applicant';
 import KeywordModel from './keyword';
 import ProjectKeywordModel from './projectKeyword';
 import InterviewQuestionModel from './interviewQuestion';
-import RoleModel from './role';
-import ProjectRecruitRoleModel from './projectRecruitRole';
 import ApplicantPortfolioModel from './applicantPortfolio';
 
 const env = process.env.NODE_ENV || 'development';
@@ -33,8 +31,6 @@ export const Applicant = ApplicantModel(sequelize, Sequelize);
 export const Keyword = KeywordModel(sequelize, Sequelize);
 export const ProjectKeyword = ProjectKeywordModel(sequelize, Sequelize);
 export const InterviewQuestion = InterviewQuestionModel(sequelize, Sequelize);
-export const Role = RoleModel(sequelize, Sequelize);
-export const ProjectRecruitRole = ProjectRecruitRoleModel(sequelize, Sequelize);
 export const ApplicantPortfolio = ApplicantPortfolioModel(sequelize, Sequelize);
 
 const connectOneToMany = (Many, one, foreignKey) => {
@@ -61,11 +57,8 @@ connectOneToMany(Project, InterviewAnswer, 'projectId');
 connectOneToMany(Project, ProjectKeyword, 'projectId');
 connectOneToMany(Keyword, ProjectKeyword, 'keywordId');
 connectOneToMany(Project, InterviewQuestion, 'projectId');
-connectOneToMany(Project, ProjectRecruitRole, 'projectId');
-connectOneToMany(Role, ProjectRecruitRole, 'roleId');
 connectOneToMany(User, Applicant, 'userId');
 connectOneToMany(Project, Applicant, 'projectId');
-connectOneToOne(Applicant, Role, 'roleId');
 connectOneToMany(Project, ApplicantPortfolio, 'projectId');
 connectOneToMany(User, ApplicantPortfolio, 'userId');
 connectOneToMany(Portfolio, ApplicantPortfolio, 'portfolioId');
