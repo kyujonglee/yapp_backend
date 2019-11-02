@@ -26,7 +26,7 @@ export const getPortfolio = async (req, res) => {
 
     const portfolios = await Portfolio.findAll({
       where: { userId },
-      order: [['portfolioId', 'DESC']]
+      order: [['portfolioId', 'ASC']]
     });
     res.json({ portfolios });
 
@@ -79,6 +79,23 @@ export const deletePortfolio = async (req, res) => {
       where: { portfolioId }
     });
     res.status(200).json({ message: 'success' });
+
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+export const getRecruit = async (req, res) => {
+  try{
+    const {
+      user: { userId }
+    } = req;
+
+    const recruitProjects = await Project.findAll({
+      where: { userId },
+      order: [['step', 'ASC'], ['projectId', 'ASC']]
+    });
+    res.json({ recruitProjects });
 
   } catch (error) {
     throw Error(error);

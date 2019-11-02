@@ -15,6 +15,7 @@ const PROJECT_ID = '/:projectId';
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
 const PORTFOLIO = '/portfolio';
+const RECRUIT = '/recruit';
 
 const routes = {
   home: HOME,
@@ -29,7 +30,8 @@ const routes = {
   projectId: PROJECT_ID,
   mypage: MYPAGE,
   supports: SUPPORTS,
-  portfolio: PORTFOLIO
+  portfolio: PORTFOLIO,
+  recruit: RECRUIT
 };
 
 export default routes;

@@ -12,13 +12,15 @@ export default (sequelize, DataTypes) =>
         allowNull: false
       },
       content: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        defaultValue: ''
       },
       thumbnailImage: {
         type: DataTypes.STRING(200)
       },
       attachFile: {
-        type: DataTypes.STRING(200)
+        type: DataTypes.STRING(200),
+        defaultValue: ''
       },
       viewCnt: {
         type: DataTypes.INTEGER,
@@ -28,6 +30,14 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.literal('NOW()')
+      },
+      step: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      location: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
       }
     },
     { timestamps: false, freezeTableName: true }
