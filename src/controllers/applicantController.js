@@ -29,17 +29,23 @@ export const enrollApplicant = async (req, res) => {
         },
         { transaction }
       );
-      const applicantPortfolios = portfolios.map(portfolioId => ({
-        projectId,
-        userId,
-        portfolioId
-      }));
-      const applicantAnswers = answers.map(answer => ({
-        projectId,
-        userId,
-        sn: answer.sn,
-        content: answer.content
-      }));
+      let applicantPortfolios;
+      if (portfolios && portfolios.length) {
+        applicantPortfolios = portfolios.map(portfolioId => ({
+          projectId,
+          userId,
+          portfolioId
+        }));
+      }
+      let applicantAnswers;
+      if (answers && answers.length) {
+        applicantAnswers = answers.map(answer => ({
+          projectId,
+          userId,
+          sn: answer.sn,
+          content: answer.content
+        }));
+      }
       await ApplicantPortfolio.bulkCreate(applicantPortfolios, { transaction });
       await InterviewAnswer.bulkCreate(applicantAnswers, { transaction });
       await transaction.commit();
