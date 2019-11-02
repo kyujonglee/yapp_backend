@@ -6,10 +6,10 @@ const SEARCH = '/search';
 
 const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
-const CHECK_EMAIL = '/check-email';
+const CHECK_EMAIL = '/checkEmail';
 
 const USER = '/user';
-const PORTFOLIOS = '/portfolios'
+const PORTFOLIOS = '/portfolios';
 
 const API = '/api';
 
@@ -20,6 +20,8 @@ const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
 const KEYWORDS = '/keywords';
 const KEYWORD_ID = '/:keywordId';
+
+const APPLICANTS = '/applicants';
 
 const routes = {
   home: HOME,
@@ -38,7 +40,8 @@ const routes = {
   keywordId: KEYWORD_ID,
   checkEmail: CHECK_EMAIL,
   user: USER,
-  portfolios: PORTFOLIOS
+  portfolios: PORTFOLIOS,
+  applicants: APPLICANTS
 };
 
 export default routes;

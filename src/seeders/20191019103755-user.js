@@ -17,6 +17,12 @@ export default {
           email: 'kyujong93@gmail.com',
           password: await bcrypt.hash('toddlf20', saltRounds),
           keywords: '1,5,10'
+        },
+        {
+          name: 'gogogo',
+          email: 'gogogo@gogo.com',
+          password: await bcrypt.hash('toddlf20', saltRounds),
+          keywords: '2,3,4'
         }
       ],
       {}

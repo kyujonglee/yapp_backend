@@ -14,6 +14,18 @@ export default {
           title: '의료검색엔진',
           myRole: `환자들에게 검색에 더 유연한 결과를 줍니다.`,
           useStack: 'ELK, django'
+        },
+        {
+          userId: 3,
+          title: 'portfolio~~!!!!',
+          myRole: `조장역할을 맡아서 진행함!`,
+          useStack: 'spring, mybatis, mysql, jQuery'
+        },
+        {
+          userId: 3,
+          title: 'portfolio~~!!!',
+          myRole: `프론트 부분을 맡아서 진행함.`,
+          useStack: 'spring, mybatis, mysql, react'
         }
       ],
       {}

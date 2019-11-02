@@ -1,11 +1,15 @@
 import express from 'express';
 import routes from '../routes';
 import { findProjects, getProject } from '../controllers/projectController';
+import { enrollApplicant } from '../controllers/applicantController';
+import { onlyPrivate } from '../middlewares';
 
 const projectRouter = express.Router();
 
 projectRouter.get(routes.home, findProjects);
 projectRouter.get(routes.projectId, getProject);
+
+projectRouter.post(`${routes.projectId}${routes.applicants}`, onlyPrivate, enrollApplicant);
 
 /**
  * @swagger
