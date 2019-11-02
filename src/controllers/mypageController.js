@@ -123,33 +123,20 @@ export const getApplicantDetail = async (req, res) => {
       params: { projectId }
     } = req;
 
-    const project = await Project.findAll({
-      attributes: ['projectId', 'title', 'role'],
-      where: { projectId }
+    const projectAndInterview = await Project.findAll({
+      include: [{ model: InterviewQuestion},
+                {model: InterviewAnswer, where: { userId: applicantId }}]
     });
 
     const applicant = await User.findAll({
-      //attributes: ['email', 'name', 'profileImage', 'phone', 'flag'],
       attributes: ['email', 'name', 'profileImage'],
       where: { userId: applicantId }
     });
 
-    const question = await InterviewQuestion.findAll({
-      attributes: ['content'],
-      where: { projectId },
-      order: [['sn', 'ASC']]
-    });
-
-    const answer = await InterviewAnswer.findAll({
-      attributes: ['content'],
-      where: [{ userId: applicantId }, {projectId}],
-      order: [['sn', 'ASC']]
-    });
-
     const portfolioQuery = 'SELECT p.portfolioId, p.title, p.useStack, p.myRole, p.thumbnailImage, p.attachFile FROM portfolio as p, applicantPortfolio as a WHERE a.projectId=:projectId AND a.userId=:userId AND a.portfolioId=p.portfolioId';
     const portfolios = await sequelize.query(portfolioQuery, {replacements: { projectId: projectId, userId:applicantId }});
-  
-    res.json({'project':project, 'applicant':applicant, 'question':question, 'answer':answer, 'portfolios':portfolios[0]});
+
+    res.json({'project':projectAndInterview, 'applicant':applicant, 'portfolios':portfolios[0]});
 
   } catch (error) {
     throw Error(error);
