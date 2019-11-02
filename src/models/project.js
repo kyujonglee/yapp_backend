@@ -15,6 +15,9 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.TEXT,
         defaultValue: ''
       },
+      role: {
+        type: DataTypes.INTEGER
+      },
       thumbnailImage: {
         type: DataTypes.STRING(200)
       },

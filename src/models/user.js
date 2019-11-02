@@ -19,8 +19,11 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.STRING(50),
         allowNull: false
       },
-      profileImage : {
-        type : DataTypes.STRING(200)
+      profileImage: {
+        type: DataTypes.STRING(200)
+      },
+      keywords: {
+        type: DataTypes.STRING(500)
       },
       keywords: {
         type: DataTypes.STRING(500)

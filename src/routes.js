@@ -6,6 +6,10 @@ const SEARCH = '/search';
 
 const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
+const CHECK_EMAIL = '/checkEmail';
+
+const USER = '/user';
+const PORTFOLIOS = '/portfolios';
 
 const API = '/api';
 
@@ -14,8 +18,14 @@ const PROJECT_ID = '/:projectId';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
+const KEYWORDS = '/keywords';
+const KEYWORD_ID = '/:keywordId';
+
+const APPLICANTS = '/applicants';
+
 const PORTFOLIO = '/portfolio';
 const RECRUIT = '/recruit';
+
 
 const routes = {
   home: HOME,
@@ -30,6 +40,12 @@ const routes = {
   projectId: PROJECT_ID,
   mypage: MYPAGE,
   supports: SUPPORTS,
+  keywords: KEYWORDS,
+  keywordId: KEYWORD_ID,
+  checkEmail: CHECK_EMAIL,
+  user: USER,
+  portfolios: PORTFOLIOS,
+  applicants: APPLICANTS,
   portfolio: PORTFOLIO,
   recruit: RECRUIT
 };

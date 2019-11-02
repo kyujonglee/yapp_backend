@@ -1,11 +1,39 @@
 import express from 'express';
 import routes from '../routes';
-import { postLogin, postJoin } from '../controllers/userController';
+import { postLogin, postJoin, checkEmail } from '../controllers/userController';
 
 const globalRouter = express.Router();
 
 globalRouter.post(routes.getToken, postLogin);
 globalRouter.post(routes.join, postJoin, postLogin);
+globalRouter.post(routes.checkEmail, checkEmail);
+
+/**
+ * @swagger
+ * tags:
+ *     name: 이메일 중복 체크
+ */
+
+/**
+ * @swagger
+ * /checkEmail:
+ *     post:
+ *         summary: email 중복체크
+ *         tags: [이메일 중복 체크]
+ *         parameters:
+ *             - in: body
+ *               name: email
+ *               schema:
+ *                  type: string
+ *                  example: {"email": "gogogo@gmail.com"}
+ *                  required: email
+ *         responses:
+ *             200:
+ *                 description: email이 중복되었을 때 false, 중복이 안되었을 때 true
+ *                 schema:
+ *                     type: boolean
+ *                     example: true
+ */
 
 /**
  * @swagger
@@ -26,7 +54,7 @@ globalRouter.post(routes.join, postJoin, postLogin);
  *           name: email, password, name
  *           schema:
  *               type: object
- *               example : {email: 'kyujong93@naver.com', password: 'password1234!', name: '이규종'}
+ *               example : {email: 'kyujong93@naver.com', password: 'password1234!', password2: 'password1234!', name: '이규종'}
  *               required:
  *               - email
  *               - password
@@ -36,7 +64,7 @@ globalRouter.post(routes.join, postJoin, postLogin);
  *                   type: string
  *               password:
  *                   type: string
- *               name : 
+ *               name :
  *                   type : string
  *     responses:
  *       200:
