@@ -2,8 +2,8 @@ import express from 'express';
 import routes from '../routes';
 import {
   findProjects,
-  getProject,
-  enrollProject
+  enrollProject,
+  getProjectQuestion
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -12,8 +12,7 @@ const projectRouter = express.Router();
 
 projectRouter.get(routes.home, findProjects);
 projectRouter.post(routes.home, onlyPrivate, uploadProjectImage, enrollProject);
-
-projectRouter.get(routes.projectId, getProject);
+projectRouter.get(`${routes.projectId}${routes.question}`, getProjectQuestion);
 projectRouter.post(
   `${routes.projectId}${routes.applicants}`,
   onlyPrivate,

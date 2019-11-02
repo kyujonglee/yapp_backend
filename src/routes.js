@@ -17,6 +17,7 @@ const API = '/api';
 
 const PROJECTS = '/projects';
 const PROJECT_ID = '/:projectId';
+const QUESTION = '/question';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
@@ -46,6 +47,7 @@ const routes = {
   applicants: APPLICANTS,
   me: ME,
   profile: PROFILE
+  question: QUESTION
 };
 
 export default routes;
