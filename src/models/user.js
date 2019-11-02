@@ -19,6 +19,16 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.STRING(50),
         allowNull: false
       },
+      location: {
+        type: DataTypes.INTEGER
+      },
+      phone: {
+        type: DataTypes.STRING(20)
+      },
+      flag : {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
       profileImage: {
         type: DataTypes.STRING(200)
       },

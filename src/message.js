@@ -5,7 +5,8 @@ const message = {
   alreadyUser: '해당 회원이 이미 존재합니다.',
   failChooseKeyword: '키워드를 선택하는데 실패하였습니다.',
   failDeleteKeyword: '해당 키워드 선택을 해제하는데 실패하였습니다.',
-  failApplicant: '지원에 실패하였습니다.'
+  failApplicant: '지원에 실패하였습니다.',
+  failGetUser: 'cannot find user'
 };
 
 export default message;
