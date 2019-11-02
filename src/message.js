@@ -6,7 +6,8 @@ const message = {
   failChooseKeyword: '키워드를 선택하는데 실패하였습니다.',
   failDeleteKeyword: '해당 키워드 선택을 해제하는데 실패하였습니다.',
   failApplicant: '지원에 실패하였습니다.',
-  failGetUser: 'cannot find user'
+  failGetUser: 'cannot find user',
+  failEnrollProject: '프로젝트를 생성하는 데 실패하였습니다.'
 };
 
 export default message;
