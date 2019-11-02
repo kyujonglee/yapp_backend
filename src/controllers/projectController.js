@@ -12,16 +12,15 @@ export const findProjects = async (req, res) => {
   }
 };
 
-export const getProject = async (req, res) => {
+export const getProjectQuestion = async (req, res) => {
   try {
     const {
       params: { projectId }
     } = req;
-    const project = await Project.findOne({
-      where: { projectId },
-      include: [{ model: InterviewQuestion }]
+    const interviewQuestions = await InterviewQuestion.findOne({
+      where: { projectId }
     });
-    res.json({ project });
+    res.json({ interviewQuestions });
   } catch (error) {
     console.log(error);
     throw Error('cannot find project');
