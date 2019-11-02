@@ -4,6 +4,8 @@ import { findProjects } from '../controllers/projectController';
 
 const projectRouter = express.Router();
 
+projectRouter.get(routes.home, findProjects);
+
 /**
  * @swagger
  * tags:
@@ -49,6 +51,5 @@ const projectRouter = express.Router();
  *               items:
  *                 $ref: '#/definitions/Project'
  */
-projectRouter.get(routes.home, findProjects);
 
 export default projectRouter;
