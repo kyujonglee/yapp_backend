@@ -123,12 +123,12 @@ export const getApplicantDetail = async (req, res) => {
       params: { projectId }
     } = req;
 
-    const projectAndInterview = await Project.findAll({
+    const projectAndInterview = await Project.findOne({
       include: [{ model: InterviewQuestion},
                 {model: InterviewAnswer, where: { userId: applicantId }}]
     });
 
-    const applicant = await User.findAll({
+    const applicant = await User.findOne({
       attributes: ['email', 'name', 'profileImage'],
       where: { userId: applicantId }
     });
