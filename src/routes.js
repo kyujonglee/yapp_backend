@@ -6,6 +6,7 @@ const SEARCH = '/search';
 
 const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
+const CHECK_EMAIL = '/check-email';
 
 const API = '/api';
 
@@ -31,7 +32,8 @@ const routes = {
   mypage: MYPAGE,
   supports: SUPPORTS,
   keywords: KEYWORDS,
-  keywordId: KEYWORD_ID
+  keywordId: KEYWORD_ID,
+  checkEmail: CHECK_EMAIL
 };
 
 export default routes;
