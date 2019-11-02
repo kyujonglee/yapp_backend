@@ -1,4 +1,4 @@
-import { Project, InterviewQuestion } from '../models';
+import { Project, InterviewQuestion, sequelize } from '../models';
 import message from '../message';
 
 export const findProjects = async (req, res) => {
@@ -35,7 +35,8 @@ export const getProject = async (req, res) => {
     } = req;
     const project = await Project.findOne({
       where: { projectId },
-      include: [{ model: InterviewQuestion }]
+      include: [{ model: InterviewQuestion }],
+      order: [[InterviewQuestion, 'sn']]
     });
     res.json({ project });
   } catch (error) {
@@ -45,22 +46,36 @@ export const getProject = async (req, res) => {
 };
 
 export const enrollProject = async (req, res) => {
+  const transaction = await sequelize.transaction();
   try {
     const {
       user: { userId },
-      body: { title, content, role, step, location }
+      body: { title, content, role, step, location, interviewQuestions }
     } = req;
-    await Project.create({
-      title,
-      content,
-      role,
-      step,
-      userId,
-      location,
-      thumbnailImage: req.file ? req.file.location : null
+    const { projectId } = await Project.create(
+      {
+        title,
+        content,
+        role,
+        step,
+        userId,
+        location,
+        thumbnailImage: req.file ? req.file.location : null
+      },
+      { transaction }
+    );
+    const parseInterviewQuestions = interviewQuestions.map(question => ({
+      content: question.content,
+      projectId
+    }));
+    await InterviewQuestion.bulkCreate(parseInterviewQuestions, {
+      transaction
     });
-    res.json(true);
+    await transaction.commit();
+    await res.json(true);
   } catch (error) {
+    console.log(error);
+    await transaction.rollback();
     throw Error(message.failEnrollProject);
   }
 };

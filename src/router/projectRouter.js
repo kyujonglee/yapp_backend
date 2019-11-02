@@ -75,6 +75,14 @@ projectRouter.post(
  *                      type: integer
  *                  thumbnailImage:
  *                      type: string
+ *                  interviewQuestions:
+ *                      type: array
+ *                      items:
+ *                          type: object
+ *                          properties:
+ *                              content:
+ *                                  type: string
+ *                          example: {"content":"참여할 것입니까?"}
  *
  *          example: {
  *              title: '안녕하세요 타이틀입니다',
