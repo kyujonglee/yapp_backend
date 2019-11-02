@@ -3,6 +3,7 @@ const HELLO = '/hello';
 const JOIN = '/join';
 const LOGIN = '/login';
 const SEARCH = '/search';
+const ME = '/me';
 
 const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
@@ -10,11 +11,13 @@ const CHECK_EMAIL = '/checkEmail';
 
 const USER = '/user';
 const PORTFOLIOS = '/portfolios';
+const PROFILE = '/profile';
 
 const API = '/api';
 
 const PROJECTS = '/projects';
 const PROJECT_ID = '/:projectId';
+const QUESTION = '/question';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
@@ -47,7 +50,10 @@ const routes = {
   portfolios: PORTFOLIOS,
   applicants: APPLICANTS,
   portfolio: PORTFOLIO,
-  recruit: RECRUIT
+  recruit: RECRUIT,
+  me: ME,
+  profile: PROFILE,
+  question: QUESTION
 };
 
 export default routes;

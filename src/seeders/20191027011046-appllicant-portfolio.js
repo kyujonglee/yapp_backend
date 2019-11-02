@@ -7,6 +7,16 @@ export default {
           projectId: 1,
           userId: 2,
           portfolioId: 1
+        },
+        {
+          projectId: 1,
+          userId: 3,
+          portfolioId: 3
+        },
+        {
+          projectId: 1,
+          userId: 3,
+          portfolioId: 4
         }
       ],
       {}

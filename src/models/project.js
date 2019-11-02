@@ -18,6 +18,12 @@ export default (sequelize, DataTypes) =>
       role: {
         type: DataTypes.INTEGER
       },
+      step: {
+        type: DataTypes.INTEGER
+      },
+      location: {
+        type: DataTypes.INTEGER
+      },
       thumbnailImage: {
         type: DataTypes.STRING(200)
       },

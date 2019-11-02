@@ -54,7 +54,8 @@ export const postLogin = async (req, res) => {
 export const getUser = (req, res) => {
   const { user } = req;
   if (user) {
-    res.json({ user });
+    const { userId, email, name, profileImage } = user;
+    res.json({ user: { userId, email, name, profileImage } });
   } else {
     res.json({ message: '해당 사용자가 존재하지 않습니다.' });
   }
@@ -107,5 +108,35 @@ export const getUserKeywords = async (req, res) => {
     res.json({ keywords });
   } catch (error) {
     res.json({ keywords: [] });
+  }
+};
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      body: { name, location, phone, flag },
+      file: { location: profileImage }
+    } = req;
+    await User.update(
+      { name, location, phone, flag, profileImage },
+      { where: { userId } }
+    );
+    res.json(true);
+  } catch (error) {
+    throw Error(message.failGetUser);
+  }
+};
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const {
+      user: { userId }
+    } = req;
+    const user = await User.findOne({ where: { userId } });
+    const { name, profileImage, location, phone, flag } = user;
+    res.json({ name, profileImage, location, phone, flag });
+  } catch (error) {
+    throw Error(message.failGetUser);
   }
 };
