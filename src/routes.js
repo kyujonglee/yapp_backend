@@ -3,6 +3,7 @@ const HELLO = '/hello';
 const JOIN = '/join';
 const LOGIN = '/login';
 const SEARCH = '/search';
+const ME = '/me';
 
 const AUTH = '/auth';
 const GET_TOKEN = '/getToken';
@@ -15,6 +16,7 @@ const API = '/api';
 
 const PROJECTS = '/projects';
 const PROJECT_ID = '/:projectId';
+const QUESTION = '/question';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
@@ -41,7 +43,9 @@ const routes = {
   checkEmail: CHECK_EMAIL,
   user: USER,
   portfolios: PORTFOLIOS,
-  applicants: APPLICANTS
+  applicants: APPLICANTS,
+  me: ME,
+  question: QUESTION
 };
 
 export default routes;
