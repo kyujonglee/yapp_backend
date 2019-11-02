@@ -26,6 +26,10 @@ const KEYWORD_ID = '/:keywordId';
 
 const APPLICANTS = '/applicants';
 
+const PORTFOLIO = '/portfolio';
+const RECRUIT = '/recruit';
+
+
 const routes = {
   home: HOME,
   hello: HELLO,
@@ -45,8 +49,10 @@ const routes = {
   user: USER,
   portfolios: PORTFOLIOS,
   applicants: APPLICANTS,
+  portfolio: PORTFOLIO,
+  recruit: RECRUIT,
   me: ME,
-  profile: PROFILE
+  profile: PROFILE,
   question: QUESTION
 };
 

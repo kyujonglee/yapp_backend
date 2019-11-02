@@ -35,6 +35,9 @@ export default (sequelize, DataTypes) =>
       keywords: {
         type: DataTypes.STRING(500)
       },
+      keywords: {
+        type: DataTypes.STRING(500)
+      },
       createAt: {
         type: DataTypes.DATE,
         allowNull: false,

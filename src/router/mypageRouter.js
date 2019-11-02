@@ -6,12 +6,24 @@ import {
   updateKeyword,
   getMypageKeywords
 } from '../controllers/keywordController';
+import { getPortfolio, addPorfolio, updatePortfolio, deletePortfolio } from '../controllers/mypageController';
+import { getRecruit, getApplicantDetail } from '../controllers/mypageController';
 
 const mypageRouter = express.Router();
 
-mypageRouter.get(routes.supports, onlyPrivate, getSupports);
 mypageRouter.get(routes.keywords, onlyPrivate, getMypageKeywords);
 mypageRouter.put(routes.keywords, onlyPrivate, updateKeyword);
+
+mypageRouter.get(routes.supports, onlyPrivate, getSupports);
+
+mypageRouter.get(routes.portfolio, onlyPrivate, getPortfolio);
+mypageRouter.post(routes.portfolio, onlyPrivate, addPorfolio);
+mypageRouter.put(routes.portfolio, onlyPrivate, updatePortfolio);
+mypageRouter.delete(routes.portfolio, onlyPrivate, deletePortfolio);
+
+mypageRouter.post(`${routes.recruit}${routes.projectId}`, onlyPrivate, getApplicantDetail);
+mypageRouter.get(routes.recruit, onlyPrivate, getRecruit);
+
 
 /**
  * @swagger
