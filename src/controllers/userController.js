@@ -110,3 +110,33 @@ export const getUserKeywords = async (req, res) => {
     res.json({ keywords: [] });
   }
 };
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      body: { name, location, phone, flag },
+      file: { location: profileImage }
+    } = req;
+    await User.update(
+      { name, location, phone, flag, profileImage },
+      { where: { userId } }
+    );
+    res.json(true);
+  } catch (error) {
+    throw Error(message.failGetUser);
+  }
+};
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const {
+      user: { userId }
+    } = req;
+    const user = await User.findOne({ where: { userId } });
+    const { name, profileImage, location, phone, flag } = user;
+    res.json({ name, profileImage, location, phone, flag });
+  } catch (error) {
+    throw Error(message.failGetUser);
+  }
+};

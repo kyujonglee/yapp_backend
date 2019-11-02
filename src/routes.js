@@ -11,6 +11,7 @@ const CHECK_EMAIL = '/checkEmail';
 
 const USER = '/user';
 const PORTFOLIOS = '/portfolios';
+const PROFILE = '/profile';
 
 const API = '/api';
 
@@ -45,6 +46,7 @@ const routes = {
   portfolios: PORTFOLIOS,
   applicants: APPLICANTS,
   me: ME,
+  profile: PROFILE
   question: QUESTION
 };
 

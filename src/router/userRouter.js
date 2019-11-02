@@ -2,14 +2,49 @@ import express from 'express';
 import routes from '../routes';
 import {
   getUserPortfolios,
-  getUserKeywords
+  getUserKeywords,
+  updateUserProfile,
+  getUserProfile
 } from '../controllers/userController';
-import { onlyPrivate } from '../middlewares';
+import { onlyPrivate, uploadAvatar } from '../middlewares';
 
 const userRouter = express.Router();
 
 userRouter.get(routes.portfolios, onlyPrivate, getUserPortfolios);
 userRouter.get(routes.keywords, onlyPrivate, getUserKeywords);
+userRouter.put(routes.profile, onlyPrivate, uploadAvatar, updateUserProfile);
+userRouter.get(routes.profile, onlyPrivate, getUserProfile);
+
+/**
+ * @swagger
+ * tags:
+ *  name: User Profile
+ */
+
+/**
+ * @swagger
+ * /user/profile:
+ *  get:
+ *     summary: 프로필 수정에서 user에 대한 정보 가져오기
+ *     tags: [User Profile]
+ *     responses:
+ *       200:
+ *         description: User에 대한 정보
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *                type: string
+ *             profileImage:
+ *                type: string
+ *             location:
+ *                type: integer
+ *             flag:
+ *                type: integer
+ *             phone:
+ *                type: string
+ *
+ */
 
 /**
  * @swagger

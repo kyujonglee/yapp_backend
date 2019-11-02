@@ -10,13 +10,15 @@ export default {
           name: '이규종',
           email: 'kyujong93@naver.com',
           password: await bcrypt.hash('toddlf20', saltRounds),
-          keywords: '4,2,9'
+          keywords: '4,2,9',
+          phone: '010-2222-3333'
         },
         {
           name: '이규종2',
           email: 'kyujong93@gmail.com',
           password: await bcrypt.hash('toddlf20', saltRounds),
-          keywords: '1,5,10'
+          keywords: '1,5,10',
+          phone: '010-1111-1111'
         },
         {
           name: 'gogogo',
