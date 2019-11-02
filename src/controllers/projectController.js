@@ -18,10 +18,26 @@ export const getProjectQuestion = async (req, res) => {
     const {
       params: { projectId }
     } = req;
-    const interviewQuestions = await InterviewQuestion.findOne({
+    const interviewQuestions = await InterviewQuestion.findAll({
       where: { projectId }
     });
     res.json({ interviewQuestions });
+  } catch (error) {
+    console.log(error);
+    throw Error('cannot find project');
+  }
+};
+
+export const getProject = async (req, res) => {
+  try {
+    const {
+      params: { projectId }
+    } = req;
+    const project = await Project.findOne({
+      where: { projectId },
+      include: [{ model: InterviewQuestion }]
+    });
+    res.json({ project });
   } catch (error) {
     console.log(error);
     throw Error('cannot find project');
@@ -32,8 +48,7 @@ export const enrollProject = async (req, res) => {
   try {
     const {
       user: { userId },
-      body: { title, content, role, step, location },
-      file: { location: thumbnailImage }
+      body: { title, content, role, step, location }
     } = req;
     await Project.create({
       title,
@@ -42,7 +57,7 @@ export const enrollProject = async (req, res) => {
       step,
       userId,
       location,
-      thumbnailImage
+      thumbnailImage: req.file ? req.file.location : null
     });
     res.json(true);
   } catch (error) {

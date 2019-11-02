@@ -9,7 +9,8 @@ export default (sequelize, DataTypes) =>
       },
       email: {
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       password: {
         type: DataTypes.STRING(150),
@@ -25,15 +26,12 @@ export default (sequelize, DataTypes) =>
       phone: {
         type: DataTypes.STRING(20)
       },
-      flag : {
+      flag: {
         type: DataTypes.INTEGER,
         defaultValue: 0
       },
       profileImage: {
         type: DataTypes.STRING(200)
-      },
-      keywords: {
-        type: DataTypes.STRING(500)
       },
       keywords: {
         type: DataTypes.STRING(500)

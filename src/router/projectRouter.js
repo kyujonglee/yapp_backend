@@ -3,7 +3,8 @@ import routes from '../routes';
 import {
   findProjects,
   enrollProject,
-  getProjectQuestion
+  getProjectQuestion,
+  getProject
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -12,6 +13,7 @@ const projectRouter = express.Router();
 
 projectRouter.get(routes.home, findProjects);
 projectRouter.post(routes.home, onlyPrivate, uploadProjectImage, enrollProject);
+projectRouter.get(routes.projectId, getProject);
 projectRouter.get(`${routes.projectId}${routes.question}`, getProjectQuestion);
 projectRouter.post(
   `${routes.projectId}${routes.applicants}`,
@@ -21,11 +23,41 @@ projectRouter.post(
 
 /**
  * @swagger
+ * /projects/{projectId}/question:
+ *   get:
+ *     summary: 해당 프로젝트에 대한 질문 반환
+ *     tags: [Project]
+ *     parameters:
+ *       - in: path
+ *         name: projectId
+ *         schema:
+ *              type: integer
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: 해당 프로젝트에 대한 질문
+ *         schema:
+ *           type: object
+ *           properties:
+ *              interviewQuestions:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                      sn:
+ *                          type: integer
+ *                      content:
+ *                          type: string
+ *                      example : {sn: 1, content: '일주일에 1회 시간내서 참여 가능하신가요?'}
+ */
+
+/**
+ * @swagger
  * /projects:
  *   post:
  *     summary: 모집글 작성
  *     tags: [Project]
- *     parameters: 
+ *     parameters:
  *        - in: body
  *          name: 프로젝트 정보
  *          schema:
@@ -43,8 +75,8 @@ projectRouter.post(
  *                      type: integer
  *                  thumbnailImage:
  *                      type: string
- *                  
- *          example: { 
+ *
+ *          example: {
  *              title: '안녕하세요 타이틀입니다',
  *              content: '안녕하세요 내용입니다.',
  *              role: 5,
