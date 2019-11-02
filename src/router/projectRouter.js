@@ -1,13 +1,16 @@
 import express from 'express';
 import routes from '../routes';
-import { findProjects, getProject } from '../controllers/projectController';
+import {
+  findProjects,
+  getProjectQuestion
+} from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate } from '../middlewares';
 
 const projectRouter = express.Router();
 
 projectRouter.get(routes.home, findProjects);
-projectRouter.get(routes.projectId, getProject);
+projectRouter.get(`${routes.projectId}${routes.question}`, getProjectQuestion);
 projectRouter.post(
   `${routes.projectId}${routes.applicants}`,
   onlyPrivate,
@@ -47,7 +50,7 @@ projectRouter.post(
  *                   example: [1, 2]
  *               answers :
  *                   type : array
- *                   items: 
+ *                   items:
  *                     type: object
  *                     properties:
  *                         sn:
@@ -71,7 +74,7 @@ projectRouter.post(
  *                  type: string
  *              attachFile:
  *                  type: string
- *              role: 
+ *              role:
  *                  type: integer
  *              viewCnt:
  *                  type: integer
@@ -119,7 +122,7 @@ projectRouter.post(
  *                  type: string
  *              attachFile:
  *                  type: string
- *              role: 
+ *              role:
  *                  type: integer
  *              viewCnt:
  *                  type: integer
