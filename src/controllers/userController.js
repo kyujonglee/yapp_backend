@@ -115,11 +115,16 @@ export const updateUserProfile = async (req, res) => {
   try {
     const {
       user: { userId },
-      body: { name, location, phone, flag },
-      file: { location: profileImage }
+      body: { name, location, phone, flag }
     } = req;
     await User.update(
-      { name, location, phone, flag, profileImage },
+      {
+        name,
+        location,
+        phone,
+        flag,
+        profileImage: req.file ? req.file.location : null
+      },
       { where: { userId } }
     );
     res.json(true);

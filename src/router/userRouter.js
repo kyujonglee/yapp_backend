@@ -24,6 +24,35 @@ userRouter.get(routes.profile, onlyPrivate, getUserProfile);
 /**
  * @swagger
  * /user/profile:
+ *  put:
+ *     summary: 프로필 수정
+ *     tags: [User Profile]
+ *     parameters:
+ *        - in: body
+ *          schema:
+ *              type: object
+ *              properties:
+ *                 name:
+ *                    type: string
+ *                 location:
+ *                    type: integer
+ *                 phone:
+ *                    type: string
+ *                 flag:
+ *                    type: integer
+ *                 profileImage:
+ *                    type: string
+ *     responses:
+ *       200:
+ *         description: User에 대한 정보
+ *         schema:
+ *           type: boolean
+ *           example : true
+ */
+
+/**
+ * @swagger
+ * /user/profile:
  *  get:
  *     summary: 프로필 수정에서 user에 대한 정보 가져오기
  *     tags: [User Profile]
