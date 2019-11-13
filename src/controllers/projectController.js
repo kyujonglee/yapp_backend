@@ -1,10 +1,10 @@
-import { Project, InterviewQuestion, sequelize } from "../models";
-import message from "../message";
+import { Project, InterviewQuestion, sequelize } from '../models';
+import message from '../message';
 
 export const findProjects = async (req, res) => {
   try {
     const projects = await Project.findAll({
-      order: [["createAt", "DESC"]],
+      order: [['createAt', 'DESC']],
       limit: 12
     });
     res.json({ projects });
@@ -24,7 +24,7 @@ export const getProjectQuestion = async (req, res) => {
     res.json({ interviewQuestions });
   } catch (error) {
     console.log(error);
-    throw Error("cannot find project");
+    throw Error('cannot find project');
   }
 };
 
@@ -36,12 +36,12 @@ export const getProject = async (req, res) => {
     const project = await Project.findOne({
       where: { projectId },
       include: [{ model: InterviewQuestion }],
-      order: [[InterviewQuestion, "sn"]]
+      order: [[InterviewQuestion, 'sn']]
     });
     res.json({ project });
   } catch (error) {
     console.log(error);
-    throw Error("cannot find project");
+    throw Error('cannot find project');
   }
 };
 
