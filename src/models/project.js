@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'project',
+    "project",
     {
       projectId: {
         type: DataTypes.INTEGER,
@@ -13,7 +13,7 @@ export default (sequelize, DataTypes) =>
       },
       content: {
         type: DataTypes.TEXT,
-        defaultValue: ''
+        defaultValue: ""
       },
       role: {
         type: DataTypes.INTEGER
@@ -24,12 +24,15 @@ export default (sequelize, DataTypes) =>
       location: {
         type: DataTypes.INTEGER
       },
+      expectedPeriod: {
+        type: DataTypes.INTEGER
+      },
       thumbnailImage: {
         type: DataTypes.STRING(200)
       },
       attachFile: {
         type: DataTypes.STRING(200),
-        defaultValue: ''
+        defaultValue: ""
       },
       viewCnt: {
         type: DataTypes.INTEGER,
@@ -38,15 +41,7 @@ export default (sequelize, DataTypes) =>
       createAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.literal('NOW()')
-      },
-      step: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-      },
-      location: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
+        defaultValue: DataTypes.literal("NOW()")
       }
     },
     { timestamps: false, freezeTableName: true }

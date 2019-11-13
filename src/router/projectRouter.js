@@ -75,6 +75,8 @@ projectRouter.post(
  *                      type: integer
  *                  thumbnailImage:
  *                      type: string
+ *                  expectedPeriod:
+ *                      type: integer
  *                  interviewQuestions:
  *                      type: array
  *                      items:
@@ -89,6 +91,7 @@ projectRouter.post(
  *              content: '안녕하세요 내용입니다.',
  *              role: 5,
  *              step: 1,
+ *              expectedPeriod: 1,
  *              location: 2,
  *              thumbnailImage: 'http://ncloud'
  *          }
@@ -145,36 +148,8 @@ projectRouter.post(
  *       200:
  *         description: Project detail
  *         schema:
- *           type: object
- *           properties:
- *              projectId:
- *                  type: integer
- *              title:
- *                  type: string
- *              content:
- *                  type: string
- *              thumbnailImage:
- *                  type: string
- *              attachFile:
- *                  type: string
- *              role:
- *                  type: integer
- *              viewCnt:
- *                  type: integer
- *              createAt:
- *                  type: date
- *              userId:
- *                  type: string
- *              interviewQuestions:
- *                  type: array
- *                  items:
- *                      type: object
- *                      properties:
- *                      sn:
- *                          type: integer
- *                      content:
- *                          type: string
- *                      example : {sn: 1, content: '일주일에 1회 시간내서 참여 가능하신가요?'}
+ *           type: boolean
+ *         example: true
  */
 
 /**
@@ -206,6 +181,8 @@ projectRouter.post(
  *              attachFile:
  *                  type: string
  *              role:
+ *                  type: integer
+ *              expectedPeriod:
  *                  type: integer
  *              viewCnt:
  *                  type: integer
@@ -245,6 +222,8 @@ projectRouter.post(
  *         description: 내용
  *       role:
  *          type: integer
+ *       expectedPeriod:
+ *          type: integer
  *       thumbnailImage:
  *         type: string
  *       attachFile:
@@ -267,7 +246,7 @@ projectRouter.post(
  *         schema:
  *           type: object
  *           properties:
- *             project:
+ *             projects:
  *               type: array
  *               items:
  *                 $ref: '#/definitions/Project'
