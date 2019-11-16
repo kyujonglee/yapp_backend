@@ -11,7 +11,8 @@ import {
   postProjectQna,
   removeProjectQna,
   updateProjectQna,
-  searchProject
+  searchProject,
+  enrollProjectCart
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -33,6 +34,7 @@ projectRouter.patch(
   updateProjectViewCnt
 );
 
+// qna
 projectRouter.get(`${routes.projectId}${routes.qna}`, getProjectQna);
 projectRouter.post(
   `${routes.projectId}${routes.qna}`,
@@ -50,7 +52,34 @@ projectRouter.patch(
   updateProjectQna
 );
 
+// search
 projectRouter.post(`${routes.search}`, searchProject);
+
+// cart
+projectRouter.post(
+  `${routes.projectId}${routes.cart}`,
+  onlyPrivate,
+  enrollProjectCart
+);
+
+/**
+ * @swagger
+ * /projects/{projectId}/cart:
+ *    post:
+ *        summary: project 즐겨찾기
+ *        tags: [ProjectCart]
+ *        parameters:
+ *             - in: path
+ *               name: projectId
+ *               schema:
+ *                  type: integer
+ *                  example: 3
+ *        responses:
+ *            200:
+ *               schema:
+ *                  type: boolean
+ *                  example: true
+ */
 
 /**
  * @swagger
@@ -71,7 +100,7 @@ projectRouter.post(`${routes.search}`, searchProject);
  *                      example: [2,5,8]
  *          - in: query
  *            name: term
- *            schema: 
+ *            schema:
  *                type: string
  *                example: "검색어"
  *          - in: query
@@ -122,9 +151,9 @@ projectRouter.post(`${routes.search}`, searchProject);
  *                               }
  *                             ]
  *                           }
- *                         ]        
+ *                         ]
  *
- * 
+ *
  */
 
 /**

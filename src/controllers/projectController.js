@@ -292,3 +292,21 @@ export const searchProject = async (req, res) => {
     throw Error('cannot find projects');
   }
 };
+
+export const enrollProjectCart = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      params: { projectId }
+    } = req;
+    const project = await Project.findOne({ where: { projectId } });
+    if (project) {
+      await ProjectCart.create({ title: project.title, projectId, userId });
+      return res.json(true);
+    } 
+      return res.json(false);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
