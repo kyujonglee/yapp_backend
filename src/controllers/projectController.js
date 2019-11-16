@@ -11,9 +11,17 @@ import message from '../message';
 
 export const findProjects = async (req, res) => {
   try {
+    const { user } = req;
     const projects = await Project.findAll({
       order: [['createAt', 'DESC']],
-      limit: 12
+      limit: 12,
+      include: [
+        {
+          model: ProjectCart,
+          where: { userId: `${user ? user.userId : null}` },
+          required: false
+        }
+      ]
     });
     res.json({ projects });
   } catch (error) {
@@ -23,9 +31,17 @@ export const findProjects = async (req, res) => {
 
 export const findProjectsByPopularity = async (req, res) => {
   try {
+    const { user } = req;
     const projects = await Project.findAll({
       order: [['viewCnt', 'DESC']],
-      limit: 6
+      limit: 6,
+      include: [
+        {
+          model: ProjectCart,
+          where: { userId: `${user ? user.userId : null}` },
+          required: false
+        }
+      ]
     });
     res.json({ projects });
   } catch (error) {
@@ -50,10 +66,11 @@ export const getProjectQuestion = async (req, res) => {
 export const getProject = async (req, res) => {
   try {
     const {
-      params: { projectId }
+      params: { projectId },
+      user
     } = req;
     const { Op } = Sequelize;
-    const Qna = await Project.findOne({
+    const project = await Project.findOne({
       where: { projectId },
       include: [
         {
@@ -63,10 +80,15 @@ export const getProject = async (req, res) => {
           limit: 15,
           offset: 0,
           order: [['createAt', 'DESC']]
+        },
+        {
+          model: ProjectCart,
+          where: { userId: `${user ? user.userId : null}` },
+          required: false
         }
       ]
     });
-    res.json({ result: Qna });
+    res.json(project);
   } catch (error) {
     console.log(error);
     throw Error('cannot find project');
@@ -244,7 +266,7 @@ export const searchProject = async (req, res) => {
     let include = [
       {
         model: ProjectCart,
-        where: { userId: `${user && user.userId ? user.userId : null}` },
+        where: { userId: `${user && user.userId ? user.userId : ''}` },
         required: false
       }
     ];
