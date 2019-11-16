@@ -39,14 +39,6 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.literal('NOW()')
-      },
-      step: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-      },
-      location: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
       }
     },
     { timestamps: false, freezeTableName: true }

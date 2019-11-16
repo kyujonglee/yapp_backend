@@ -1,16 +1,18 @@
-import express from 'express';
-import routes from '../routes';
+import express from "express";
+import routes from "../routes";
 import {
   findProjects,
   enrollProject,
   getProjectQuestion,
-  getProject
-} from '../controllers/projectController';
-import { enrollApplicant } from '../controllers/applicantController';
-import { onlyPrivate, uploadProjectImage } from '../middlewares';
+  getProject,
+  findProjectsByPopularity
+} from "../controllers/projectController";
+import { enrollApplicant } from "../controllers/applicantController";
+import { onlyPrivate, uploadProjectImage } from "../middlewares";
 
 const projectRouter = express.Router();
 
+projectRouter.get(routes.popularity, findProjectsByPopularity);
 projectRouter.get(routes.home, findProjects);
 projectRouter.post(routes.home, onlyPrivate, uploadProjectImage, enrollProject);
 projectRouter.get(routes.projectId, getProject);
@@ -253,6 +255,24 @@ projectRouter.post(
  *          type: integer
  *       createAt:
  *          type: date
+ */
+
+/**
+ * @swagger
+ * /projects/popularity:
+ *   get:
+ *     summary: 메인페이지 인기 프로젝트 limit 6개 불러오기(조회순)
+ *     tags: [Project]
+ *     responses:
+ *       200:
+ *         description: Project list
+ *         schema:
+ *           type: object
+ *           properties:
+ *             project:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Project'
  */
 
 /**
