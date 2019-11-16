@@ -29,7 +29,6 @@ export default (sequelize, DataTypes) =>
       },
       attachFile: {
         type: DataTypes.STRING(200),
-        defaultValue: ''
       },
       viewCnt: {
         type: DataTypes.INTEGER,

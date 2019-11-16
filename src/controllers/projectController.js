@@ -1,5 +1,12 @@
 import Sequelize from 'sequelize';
-import { Project, InterviewQuestion, sequelize, ProjectQna } from '../models';
+import {
+  Project,
+  InterviewQuestion,
+  sequelize,
+  ProjectQna,
+  ProjectKeyword,
+  ProjectCart
+} from '../models';
 import message from '../message';
 
 export const findProjects = async (req, res) => {
@@ -206,5 +213,60 @@ export const updateProjectQna = async (req, res) => {
     return res.json(false);
   } catch (error) {
     throw Error(error.message);
+  }
+};
+
+export const searchProject = async (req, res) => {
+  try {
+    const {
+      body: { keywords }
+    } = req;
+    let {
+      // eslint-disable-next-line prefer-const
+      query: { term, offset, location }
+    } = req;
+    const { Op } = Sequelize;
+    const LIMIT = 15;
+    const { user } = req;
+    if (!term) term = '';
+    if (!offset) offset = 0;
+    let condition = {
+      where: {
+        [Op.or]: [
+          { title: { [Op.substring]: term } },
+          { content: { [Op.substring]: term } }
+        ]
+      },
+      limit: LIMIT,
+      offset,
+      order: [['createAt', 'DESC']]
+    };
+    let include = [
+      {
+        model: ProjectCart,
+        where: { userId: `${user && user.userId ? user.userId : null}` },
+        required: false
+      }
+    ];
+    if (keywords && keywords.length) {
+      include = [
+        ...include,
+        {
+          model: ProjectKeyword,
+          where: { keywordId: { [Op.in]: keywords } }
+        }
+      ];
+    }
+    if (location) {
+      condition = { ...condition, where: { ...condition.where, location } };
+    }
+    const projects = await Project.findAll({
+      ...condition,
+      include
+    });
+    res.json(projects);
+  } catch (error) {
+    console.log(error);
+    throw Error('cannot find projects');
   }
 };

@@ -10,7 +10,8 @@ import {
   getProjectQna,
   postProjectQna,
   removeProjectQna,
-  updateProjectQna
+  updateProjectQna,
+  searchProject
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -42,12 +43,89 @@ projectRouter.delete(
   `${routes.projectId}${routes.qna}`,
   onlyPrivate,
   removeProjectQna
-)
+);
 projectRouter.patch(
   `${routes.projectId}${routes.qna}`,
   onlyPrivate,
   updateProjectQna
-)
+);
+
+projectRouter.post(`${routes.search}`, searchProject);
+
+/**
+ * @swagger
+ * /projects/search:
+ *    post:
+ *       summary: 검색 결과에 따른 projects
+ *       tags: [Project]
+ *       parameters:
+ *          - in: body
+ *            name: location과 keywords
+ *            schema:
+ *               type: object
+ *               properties:
+ *                  keywords:
+ *                      type: array
+ *                      items:
+ *                          type: integer
+ *                      example: [2,5,8]
+ *          - in: query
+ *            name: term
+ *            schema: 
+ *                type: string
+ *                example: "검색어"
+ *          - in: query
+ *            name: location
+ *            schema:
+ *                type: integer
+ *                example: 2
+ *       responses:
+ *          200:
+ *              description: 검색 결과에 따른 projects
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/definitions/Project'
+ *                      example: [
+ *                           {
+ *                             "projectId": 4,
+ *                             "title": "신한 해커톤 참가자를 모집합니다.",
+ *                             "content": "열심히 할 분을 찾습니다!",
+ *                             "role": 101,
+ *                             "step": 1,
+ *                             "location": 2,
+ *                             "thumbnailImage": null,
+ *                             "attachFile": "",
+ *                             "viewCnt": 0,
+ *                             "createAt": "2019-11-13T13:53:46.000Z",
+ *                             "userId": 1,
+ *                             "projectCarts": []
+ *                           },
+ *                           {
+ *                             "projectId": 1,
+ *                             "title": "해커톤 팀원 모집",
+ *                             "content": "2019 yapp 해커톤에 참여하실 분들 구합니다. ",
+ *                             "role": 3,
+ *                             "step": null,
+ *                             "location": null,
+ *                             "thumbnailImage": null,
+ *                             "attachFile": "",
+ *                             "viewCnt": 0,
+ *                             "createAt": "2019-11-13T13:45:30.000Z",
+ *                             "userId": 1,
+ *                             "projectCarts": [
+ *                               {
+ *                                 "id": 1,
+ *                                 "title": "해커톤 팀원 모집",
+ *                                 "projectId": 1,
+ *                                 "userId": 1
+ *                               }
+ *                             ]
+ *                           }
+ *                         ]        
+ *
+ * 
+ */
 
 /**
  * @swagger
@@ -71,7 +149,7 @@ projectRouter.patch(
  *                    content:
  *                        type: string
  *                example: {"projectQnaId": 3, "content": "Qna 수정하기!"}
- * 
+ *
  *      responses:
  *          200:
  *              schema:
@@ -99,7 +177,7 @@ projectRouter.patch(
  *                    projectQnaId:
  *                        type: integer
  *                example: {"projectQnaId": 3}
- * 
+ *
  *      responses:
  *          200:
  *              schema:
