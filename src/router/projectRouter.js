@@ -1,15 +1,16 @@
-import express from "express";
-import routes from "../routes";
+import express from 'express';
+import routes from '../routes';
 import {
   findProjects,
   enrollProject,
   getProjectQuestion,
   getProject,
   findProjectsByPopularity,
-  updateProjectViewCnt
-} from "../controllers/projectController";
-import { enrollApplicant } from "../controllers/applicantController";
-import { onlyPrivate, uploadProjectImage } from "../middlewares";
+  updateProjectViewCnt,
+  getProjectQna
+} from '../controllers/projectController';
+import { enrollApplicant } from '../controllers/applicantController';
+import { onlyPrivate, uploadProjectImage } from '../middlewares';
 
 const projectRouter = express.Router();
 
@@ -27,6 +28,94 @@ projectRouter.patch(
   `${routes.projectId}${routes.viewCnt}`,
   updateProjectViewCnt
 );
+
+projectRouter.post(`${routes.projectId}${routes.qna}`, getProjectQna);
+
+/**
+ * @swagger
+ * tags:
+ *   name: ProjectQna
+ *   description: ProjectQna
+ * definitions:
+ *    ProjectQna:
+ *                      type: object
+ *                      properties:
+ *                          projectQnaId:
+ *                             type: interger
+ *                          content:
+ *                             type: string
+ *                          parentId:
+ *                             type: integer
+ *                          userId:
+ *                             type: integer
+ *                          projectId:
+ *                             type: integer
+ *                          createAt:
+ *                             type: date
+ *                          answer:
+ *                             type: array
+ *                             items:
+ *                                type: object
+ * 
+ * example:
+ *                            { 
+ *                              "projectQnaId": 1, 
+ *                              "content": "안녕하세요 프로젝트에 궁금한 점 남깁니다.",
+ *                              "parentId": null,
+ *                              "userId": 3,
+ *                              "projectId": 1,
+ *                              "createAt": "2019-11-16T09:08:04.000Z",
+ *                              "answer": []
+ *                            }
+ */
+
+/**
+ * @swagger
+ * /projects/{projectId}/qna:
+ *    post:
+ *      summary: 해당 프로젝트에 대한 qna
+ *      tags: [Project]
+ *      parameters:
+ *        - in: body
+ *          name: offset
+ *          schema:
+ *             type: object
+ *             properties:
+ *                offset:
+ *                   type: integer
+ *        - in: path
+ *          name: projectId
+ *          schema:
+ *              type: integer
+ *              example: 1
+ *      responses:
+ *          200:
+ *              description: 해당 프로젝트의 질문과 질문에 대한 답변 반환
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/definitions/ProjectQna'
+ *                      example:
+ *                            { 
+ *                              "projectQnaId": 1, 
+ *                              "content": "안녕하세요 프로젝트에 궁금한 점 남깁니다.",
+ *                              "parentId": null,
+ *                              "userId": 3,
+ *                              "projectId": 1,
+ *                              "createAt": "2019-11-16T09:08:04.000Z",
+ *                              "answer": [
+ *                                  {
+  *                                      "projectQnaId": 1, 
+ *                                       "content": "네 무엇이든 물어보세요!",
+ *                                       "parentId": 1,
+ *                                       "userId": 1,
+ *                                       "projectId": 1,
+ *                                       "createAt": "2019-11-16T09:08:04.000Z",
+ *                                       "answer": null
+ *                                  }
+ *                              ]
+ *                            }
+ */
 
 /**
  * @swagger
@@ -241,16 +330,10 @@ projectRouter.patch(
  *                  type: date
  *              userId:
  *                  type: string
- *              interviewQuestions:
+ *              projectQnas:
  *                  type: array
  *                  items:
- *                      type: object
- *                      properties:
- *                      sn:
- *                          type: integer
- *                      content:
- *                          type: string
- *                      example : {sn: 1, content: '일주일에 1회 시간내서 참여 가능하신가요?'}
+ *                     $ref: '#/definitions/ProjectQna'
  */
 
 /**

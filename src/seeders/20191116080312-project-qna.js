@@ -19,6 +19,12 @@ export default {
           parentId: 1,
           projectId: 1,
           userId: 1
+        },
+        {
+          content: 'what??',
+          parentId: 1,
+          projectId: 1,
+          userId: 3
         }
       ],
       {}

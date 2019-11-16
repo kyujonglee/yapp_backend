@@ -60,3 +60,5 @@ connectOneToMany(User, ApplicantPortfolio, 'userId');
 connectOneToMany(Portfolio, ApplicantPortfolio, 'portfolioId');
 connectOneToMany(User, ProjectQna, 'userId');
 connectOneToMany(Project, ProjectQna, 'projectId');
+
+ProjectQna.hasMany(ProjectQna, { as: 'answer', foreignKey: 'parentId' });
