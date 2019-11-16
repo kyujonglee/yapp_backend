@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    "projectQna",
+    'projectQna',
     {
       projectQnaId: {
         type: DataTypes.INTEGER,
@@ -14,6 +14,11 @@ export default (sequelize, DataTypes) =>
       parentId: {
         type: DataTypes.INTEGER,
         defaultValue: 0
+      },
+      createAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.literal('NOW()')
       }
     },
     { timestamps: false, freezeTableName: true }
