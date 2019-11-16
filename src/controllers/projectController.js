@@ -191,3 +191,20 @@ export const removeProjectQna = async (req, res) => {
     throw Error(error.message);
   }
 };
+
+export const updateProjectQna = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      body: { projectQnaId, content }
+    } = req;
+    const projectQna = await ProjectQna.findOne({ where: { projectQnaId } });
+    if (projectQna.userId === userId) {
+      await ProjectQna.update({ content }, { where: { projectQnaId } });
+      res.json(true);
+    }
+    return res.json(false);
+  } catch (error) {
+    throw Error(error.message);
+  }
+};

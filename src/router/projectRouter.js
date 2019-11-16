@@ -9,7 +9,8 @@ import {
   updateProjectViewCnt,
   getProjectQna,
   postProjectQna,
-  removeProjectQna
+  removeProjectQna,
+  updateProjectQna
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -42,6 +43,41 @@ projectRouter.delete(
   onlyPrivate,
   removeProjectQna
 )
+projectRouter.patch(
+  `${routes.projectId}${routes.qna}`,
+  onlyPrivate,
+  updateProjectQna
+)
+
+/**
+ * @swagger
+ * /projects/{projectId}/qna:
+ *   patch:
+ *      summary: 해당 project에 대한 qna 수정
+ *      tags: [Project]
+ *      parameters:
+ *          - in: path
+ *            name: projectId
+ *            schema:
+ *                type: integer
+ *                example: 1
+ *          - in: body
+ *            name: projectQnaId
+ *            schema:
+ *                type: object
+ *                properties:
+ *                    projectQnaId:
+ *                        type: integer
+ *                    content:
+ *                        type: string
+ *                example: {"projectQnaId": 3, "content": "Qna 수정하기!"}
+ * 
+ *      responses:
+ *          200:
+ *              schema:
+ *                  type: boolean
+ *                  example: true
+ */
 
 /**
  * @swagger
