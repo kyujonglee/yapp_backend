@@ -88,3 +88,22 @@ export const enrollProject = async (req, res) => {
     throw Error(message.failEnrollProject);
   }
 };
+
+export const updateProjectViewCnt = async (req, res) => {
+  try {
+    const {
+      params: { projectId }
+    } = req;
+    if (!projectId) return res.json(false);
+    const project = await Project.findOne({ where: { projectId } });
+    if(!project) return res.json(false);
+    await Project.update(
+      { viewCnt: project.viewCnt + 1 },
+      { where: { projectId } }
+    );
+    return res.json(true);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};

@@ -5,7 +5,8 @@ import {
   enrollProject,
   getProjectQuestion,
   getProject,
-  findProjectsByPopularity
+  findProjectsByPopularity,
+  updateProjectViewCnt
 } from "../controllers/projectController";
 import { enrollApplicant } from "../controllers/applicantController";
 import { onlyPrivate, uploadProjectImage } from "../middlewares";
@@ -22,6 +23,31 @@ projectRouter.post(
   onlyPrivate,
   enrollApplicant
 );
+projectRouter.patch(
+  `${routes.projectId}${routes.viewCnt}`,
+  updateProjectViewCnt
+);
+
+/**
+ * @swagger
+ * /projects/{projectId}/viewCnt:
+ *    patch:
+ *      summary: 해당 프로젝트에 대한 조회수 증가
+ *      tags: [Project]
+ *      parameters:
+ *          - in: path
+ *            name: projectId
+ *            schema:
+ *              type: integer
+ *            required: true
+ *      responses:
+ *        200:
+ *          description: 해당 프로젝트에 대한 질문
+ *          schema:
+ *            type: boolean
+ *          example: true
+ *
+ */
 
 /**
  * @swagger
