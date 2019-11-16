@@ -12,7 +12,8 @@ import {
   removeProjectQna,
   updateProjectQna,
   searchProject,
-  enrollProjectCart
+  enrollProjectCart,
+  deleteProjectCart
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -61,6 +62,30 @@ projectRouter.post(
   onlyPrivate,
   enrollProjectCart
 );
+projectRouter.delete(
+  `${routes.projectId}${routes.cart}`,
+  onlyPrivate,
+  deleteProjectCart
+);
+
+/**
+ * @swagger
+ * /projects/{projectId}/cart:
+ *    delete:
+ *        summary: project 즐겨찾기 삭제
+ *        tags: [ProjectCart]
+ *        parameters:
+ *             - in: path
+ *               name: projectId
+ *               schema:
+ *                  type: integer
+ *                  example: 3
+ *        responses:
+ *            200:
+ *               schema:
+ *                  type: boolean
+ *                  example: true
+ */
 
 /**
  * @swagger
@@ -244,9 +269,6 @@ projectRouter.post(
 
 /**
  * @swagger
- * tags:
- *   name: ProjectQna
- *   description: ProjectQna
  * definitions:
  *    ProjectQna:
  *                      type: object

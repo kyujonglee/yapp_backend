@@ -303,10 +303,22 @@ export const enrollProjectCart = async (req, res) => {
     if (project) {
       await ProjectCart.create({ title: project.title, projectId, userId });
       return res.json(true);
-    } 
-      return res.json(false);
+    }
+    return res.json(false);
   } catch (error) {
-    console.log(error);
     throw Error(error.message);
+  }
+};
+
+export const deleteProjectCart = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      params: { projectId }
+    } = req;
+    await ProjectCart.destroy({ where: { userId, projectId } });
+    res.json(true);
+  } catch (error) {
+    res.json(false);
   }
 };
