@@ -8,7 +8,8 @@ import {
   findProjectsByPopularity,
   updateProjectViewCnt,
   getProjectQna,
-  postProjectQna
+  postProjectQna,
+  removeProjectQna
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -36,6 +37,39 @@ projectRouter.post(
   onlyPrivate,
   postProjectQna
 );
+projectRouter.delete(
+  `${routes.projectId}${routes.qna}`,
+  onlyPrivate,
+  removeProjectQna
+)
+
+/**
+ * @swagger
+ * /projects/{projectId}/qna:
+ *   delete:
+ *      summary: 해당 project에 대한 qna 삭제
+ *      tags: [Project]
+ *      parameters:
+ *          - in: path
+ *            name: projectId
+ *            schema:
+ *                type: integer
+ *                example: 1
+ *          - in: body
+ *            name: projectQnaId
+ *            schema:
+ *                type: object
+ *                properties:
+ *                    projectQnaId:
+ *                        type: integer
+ *                example: {"projectQnaId": 3}
+ * 
+ *      responses:
+ *          200:
+ *              schema:
+ *                  type: boolean
+ *                  example: true
+ */
 
 /**
  * @swagger
@@ -58,7 +92,11 @@ projectRouter.post(
  *                        type: string
  *                    parentId:
  *                        type: integer
- *            
+ *       responses:
+ *          200:
+ *              schema:
+ *                 type: boolean
+ *                 example: true
  */
 
 /**
