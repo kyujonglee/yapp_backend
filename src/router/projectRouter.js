@@ -71,7 +71,7 @@ projectRouter.post(`${routes.search}`, searchProject);
  *                      example: [2,5,8]
  *          - in: query
  *            name: term
- *            schema: 
+ *            schema:
  *                type: string
  *                example: "검색어"
  *          - in: query
@@ -122,9 +122,9 @@ projectRouter.post(`${routes.search}`, searchProject);
  *                               }
  *                             ]
  *                           }
- *                         ]        
+ *                         ]
  *
- * 
+ *
  */
 
 /**
@@ -215,9 +215,6 @@ projectRouter.post(`${routes.search}`, searchProject);
 
 /**
  * @swagger
- * tags:
- *   name: ProjectQna
- *   description: ProjectQna
  * definitions:
  *    ProjectQna:
  *                      type: object
