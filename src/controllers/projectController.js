@@ -125,7 +125,7 @@ export const getProjectQna = async (req, res) => {
       params: { projectId }
     } = req;
     let {
-      body: { offset }
+      query: { offset }
     } = req;
     const LIMIT = 15;
     if (!offset) offset = 0;
@@ -148,6 +148,28 @@ export const getProjectQna = async (req, res) => {
       order: [['createAt', 'DESC']]
     });
     res.json({ projectQna });
+  } catch (error) {
+    throw Error(error.message);
+  }
+};
+
+export const postProjectQna = async (req, res) => {
+  try {
+    const {
+      params: { projectId },
+      user: { userId },
+      body: { content }
+    } = req;
+    let {
+      body: { parentId }
+    } = req;
+    if (!parentId) parentId = null;
+    if (projectId && content) {
+      await ProjectQna.create({ projectId, userId, content, parentId });
+      res.json(true);
+    } else {
+      res.json(false);
+    }
   } catch (error) {
     throw Error(error.message);
   }

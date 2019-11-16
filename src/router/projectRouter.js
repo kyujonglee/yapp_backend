@@ -7,7 +7,8 @@ import {
   getProject,
   findProjectsByPopularity,
   updateProjectViewCnt,
-  getProjectQna
+  getProjectQna,
+  postProjectQna
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -29,7 +30,36 @@ projectRouter.patch(
   updateProjectViewCnt
 );
 
-projectRouter.post(`${routes.projectId}${routes.qna}`, getProjectQna);
+projectRouter.get(`${routes.projectId}${routes.qna}`, getProjectQna);
+projectRouter.post(
+  `${routes.projectId}${routes.qna}`,
+  onlyPrivate,
+  postProjectQna
+);
+
+/**
+ * @swagger
+ * /projects/{projectId}/qna:
+ *    post:
+ *       summary: 해당 project에 대한 qna 등록
+ *       tags: [Project]
+ *       parameters:
+ *          - in: path
+ *            name: projectId
+ *            schema:
+ *                type: integer
+ *                example: 1
+ *          - in: body
+ *            name: Qna 정보
+ *            schema:
+ *                type: object
+ *                properties:
+ *                    content:
+ *                        type: string
+ *                    parentId:
+ *                        type: integer
+ *            
+ */
 
 /**
  * @swagger
@@ -56,10 +86,10 @@ projectRouter.post(`${routes.projectId}${routes.qna}`, getProjectQna);
  *                             type: array
  *                             items:
  *                                type: object
- * 
+ *
  * example:
- *                            { 
- *                              "projectQnaId": 1, 
+ *                            {
+ *                              "projectQnaId": 1,
  *                              "content": "안녕하세요 프로젝트에 궁금한 점 남깁니다.",
  *                              "parentId": null,
  *                              "userId": 3,
@@ -72,17 +102,14 @@ projectRouter.post(`${routes.projectId}${routes.qna}`, getProjectQna);
 /**
  * @swagger
  * /projects/{projectId}/qna:
- *    post:
+ *    get:
  *      summary: 해당 프로젝트에 대한 qna
  *      tags: [Project]
  *      parameters:
- *        - in: body
+ *        - in: query
  *          name: offset
  *          schema:
- *             type: object
- *             properties:
- *                offset:
- *                   type: integer
+ *             type: integer
  *        - in: path
  *          name: projectId
  *          schema:
@@ -96,8 +123,8 @@ projectRouter.post(`${routes.projectId}${routes.qna}`, getProjectQna);
  *                  items:
  *                      $ref: '#/definitions/ProjectQna'
  *                      example:
- *                            { 
- *                              "projectQnaId": 1, 
+ *                            {
+ *                              "projectQnaId": 1,
  *                              "content": "안녕하세요 프로젝트에 궁금한 점 남깁니다.",
  *                              "parentId": null,
  *                              "userId": 3,
@@ -105,7 +132,7 @@ projectRouter.post(`${routes.projectId}${routes.qna}`, getProjectQna);
  *                              "createAt": "2019-11-16T09:08:04.000Z",
  *                              "answer": [
  *                                  {
-  *                                      "projectQnaId": 1, 
+ *                                      "projectQnaId": 1,
  *                                       "content": "네 무엇이든 물어보세요!",
  *                                       "parentId": 1,
  *                                       "userId": 1,
