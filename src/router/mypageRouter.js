@@ -1,13 +1,19 @@
 import express from 'express';
 import routes from '../routes';
-import { getSupports } from '../controllers/mypageController';
+import {
+  getSupports,
+  getPortfolio,
+  addPorfolio,
+  updatePortfolio,
+  deletePortfolio,
+  getRecruit,
+  getApplicantDetail
+} from '../controllers/mypageController';
 import { onlyPrivate } from '../middlewares';
 import {
   updateKeyword,
   getMypageKeywords
 } from '../controllers/keywordController';
-import { getPortfolio, addPorfolio, updatePortfolio, deletePortfolio } from '../controllers/mypageController';
-import { getRecruit, getApplicantDetail } from '../controllers/mypageController';
 
 const mypageRouter = express.Router();
 
@@ -21,9 +27,12 @@ mypageRouter.post(routes.portfolio, onlyPrivate, addPorfolio);
 mypageRouter.put(routes.portfolio, onlyPrivate, updatePortfolio);
 mypageRouter.delete(routes.portfolio, onlyPrivate, deletePortfolio);
 
-mypageRouter.post(`${routes.recruit}${routes.projectId}`, onlyPrivate, getApplicantDetail);
+mypageRouter.post(
+  `${routes.recruit}${routes.projectId}`,
+  onlyPrivate,
+  getApplicantDetail
+);
 mypageRouter.get(routes.recruit, onlyPrivate, getRecruit);
-
 
 /**
  * @swagger
@@ -42,7 +51,7 @@ mypageRouter.get(routes.recruit, onlyPrivate, getRecruit);
  *                    items:
  *                        type: integer
  *                    example : [1, 2, 5]
- *                    
+ *
  *     responses:
  *       200:
  *         description: success/fail
