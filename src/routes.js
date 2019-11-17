@@ -18,6 +18,8 @@ const API = '/api';
 const PROJECTS = '/projects';
 const PROJECT_ID = '/:projectId';
 const QUESTION = '/question';
+const POPULARITY = '/popularity'
+const VIEW_CNT = '/viewCnt';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
@@ -53,7 +55,9 @@ const routes = {
   recruit: RECRUIT,
   me: ME,
   profile: PROFILE,
-  question: QUESTION
+  question: QUESTION,
+  popularity: POPULARITY,
+  viewCnt: VIEW_CNT
 };
 
 export default routes;
