@@ -18,7 +18,8 @@
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.2",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "prettier": "^1.19.1"
   },
   "dependencies": {
     "@babel/cli": "^7.5.5",

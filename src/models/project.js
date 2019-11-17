@@ -24,6 +24,9 @@ export default (sequelize, DataTypes) =>
       location: {
         type: DataTypes.INTEGER
       },
+      expectedPeriod: {
+        type: DataTypes.INTEGER
+      },
       thumbnailImage: {
         type: DataTypes.STRING(200)
       },
@@ -39,14 +42,6 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.literal('NOW()')
-      },
-      step: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-      },
-      location: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
       }
     },
     { timestamps: false, freezeTableName: true }

@@ -92,7 +92,7 @@ globalRouter.get(routes.me, onlyPrivate, getUser);
  *           name: email, password, name
  *           schema:
  *               type: object
- *               example : {email: 'kyujong93@naver.com', password: 'password1234!', password2: 'password1234!', name: '이규종'}
+ *               example : {email: 'kyujong93@naver.com', password: 'toddlf20', password2: 'password1234!', name: '이규종'}
  *               required:
  *               - email
  *               - password
@@ -134,7 +134,7 @@ globalRouter.get(routes.me, onlyPrivate, getUser);
  *           name: email and password
  *           schema:
  *               type: object
- *               example : {email: 'kyujong93@naver.com', password: 'password1234!'}
+ *               example : {email: 'kyujong93@naver.com', password: 'toddlf20'}
  *               required:
  *               - email
  *               - password
