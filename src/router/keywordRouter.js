@@ -12,7 +12,6 @@ keywordRouter.get(routes.home, getKeywords);
  *    get:
  *       summary: 모든 키워드 가져오기   
  *       tags: [Keyword]
- *       parameters:
  *       responses:
  *          200:
  *            description: 모든 키워드 가져오기

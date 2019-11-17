@@ -24,30 +24,32 @@ userRouter.get(routes.profile, onlyPrivate, getUserProfile);
 /**
  * @swagger
  * /user/profile:
- *  put:
- *     summary: 프로필 수정
- *     tags: [User Profile]
- *     parameters:
- *        - in: body
- *          schema:
- *              type: object
- *              properties:
- *                 name:
- *                    type: string
- *                 location:
- *                    type: integer
- *                 phone:
- *                    type: string
- *                 flag:
- *                    type: integer
- *                 profileImage:
- *                    type: string
- *     responses:
- *       200:
- *         description: User에 대한 정보
- *         schema:
- *           type: boolean
- *           example : true
+ *    put:
+ *        summary: User에 대한 Profile 업데이트
+ *        tags: [User Profile]
+ *        parameters:
+ *            - in: body
+ *              name: User Profile
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                     name:
+ *                        type: string
+ *                     location:
+ *                        type: integer
+ *                     phone:
+ *                        type: string
+ *                     flag:
+ *                        type: boolean
+ *                     profileImage:
+ *                        type: string
+ *                  example: {"name": "원빈", "location": 1, "phone": "010-2223-8282", "flag": true, "profileImage": "http://file.url"}
+ *        responses:
+ *           200:
+ *               description: 성공 true, 실패 false
+ *               schema:
+ *                  type: boolean
+ *               example: true
  */
 
 /**

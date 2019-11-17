@@ -201,13 +201,25 @@ export const postProjectQna = async (req, res) => {
     let {
       body: { parentId }
     } = req;
-    if (!parentId) parentId = null;
-    if (projectId && content) {
-      await ProjectQna.create({ projectId, userId, content, parentId });
-      res.json(true);
+    let qna;
+    if (!parentId) {
+      parentId = null;
     } else {
-      res.json(false);
+      qna = await ProjectQna.findOne({ where: { projectQnaId: parentId } });
     }
+    if (projectId && content) {
+      const project = await Project.findOne({ where: { projectId } });
+      if (qna) {
+        if (project.userId === userId || qna.userId === userId) {
+          await ProjectQna.create({ projectId, userId, content, parentId });
+          return res.json(true);
+        }
+      } else {
+        await ProjectQna.create({ projectId, userId, content, parentId });
+        return res.json(true);
+      }
+    }
+    return res.json(false);
   } catch (error) {
     throw Error(error.message);
   }
@@ -310,6 +322,12 @@ export const enrollProjectCart = async (req, res) => {
     } = req;
     const project = await Project.findOne({ where: { projectId } });
     if (project) {
+      const projectCart = await ProjectCart.findOne({
+        where: { projectId, userId }
+      });
+      if (projectCart) {
+        return res.json(false);
+      }
       await ProjectCart.create({ title: project.title, projectId, userId });
       return res.json(true);
     }
