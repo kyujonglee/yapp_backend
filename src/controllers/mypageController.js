@@ -143,7 +143,7 @@ export const getApplicantDetail = async (req, res) => {
       ]
     });
 
-    const applicant = await User.findAll({
+    const applicant = await User.findOne({
       attributes: ['email', 'name', 'profileImage'],
       where: { userId: applicantId }
     });
