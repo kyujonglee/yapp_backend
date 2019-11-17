@@ -10,6 +10,7 @@ import KeywordModel from './keyword';
 import ProjectKeywordModel from './projectKeyword';
 import InterviewQuestionModel from './interviewQuestion';
 import ApplicantPortfolioModel from './applicantPortfolio';
+import ProjectQnaModel from './projectQna';
 
 const env = process.env.NODE_ENV || 'development';
 // eslint-disable-next-line import/no-dynamic-require
@@ -32,18 +33,13 @@ export const Keyword = KeywordModel(sequelize, Sequelize);
 export const ProjectKeyword = ProjectKeywordModel(sequelize, Sequelize);
 export const InterviewQuestion = InterviewQuestionModel(sequelize, Sequelize);
 export const ApplicantPortfolio = ApplicantPortfolioModel(sequelize, Sequelize);
+export const ProjectQna = ProjectQnaModel(sequelize, Sequelize);
 
 const connectOneToMany = (Many, one, foreignKey) => {
   Many.hasMany(one, {
     foreignKey: { name: foreignKey, allowNull: false }
   });
   one.belongsTo(Many, {
-    foreignKey: { name: foreignKey, allowNull: false }
-  });
-};
-
-const connectOneToOne = (one, target, foreignKey) => {
-  one.belongsTo(target, {
     foreignKey: { name: foreignKey, allowNull: false }
   });
 };
@@ -62,3 +58,7 @@ connectOneToMany(Project, Applicant, 'projectId');
 connectOneToMany(Project, ApplicantPortfolio, 'projectId');
 connectOneToMany(User, ApplicantPortfolio, 'userId');
 connectOneToMany(Portfolio, ApplicantPortfolio, 'portfolioId');
+connectOneToMany(User, ProjectQna, 'userId');
+connectOneToMany(Project, ProjectQna, 'projectId');
+
+ProjectQna.hasMany(ProjectQna, { as: 'answer', foreignKey: 'parentId' });

@@ -18,8 +18,9 @@ const API = '/api';
 const PROJECTS = '/projects';
 const PROJECT_ID = '/:projectId';
 const QUESTION = '/question';
-const POPULARITY = '/popularity'
+const POPULARITY = '/popularity';
 const VIEW_CNT = '/viewCnt';
+const QNA = '/qna';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
@@ -30,7 +31,6 @@ const APPLICANTS = '/applicants';
 
 const PORTFOLIO = '/portfolio';
 const RECRUIT = '/recruit';
-
 
 const routes = {
   home: HOME,
@@ -57,7 +57,8 @@ const routes = {
   profile: PROFILE,
   question: QUESTION,
   popularity: POPULARITY,
-  viewCnt: VIEW_CNT
+  viewCnt: VIEW_CNT,
+  qna: QNA
 };
 
 export default routes;
