@@ -25,7 +25,6 @@ export const updateKeyword = async (req, res) => {
     );
     res.json(true);
   } catch (error) {
-    console.log(error);
     res.json(false);
   }
 };

@@ -48,6 +48,7 @@ connectOneToMany(User, Portfolio, 'userId');
 connectOneToMany(User, Project, 'userId');
 connectOneToMany(User, Project, 'userId');
 connectOneToMany(Project, ProjectCart, 'projectId');
+connectOneToMany(User, ProjectCart, 'userId');
 connectOneToMany(User, InterviewAnswer, 'userId');
 connectOneToMany(Project, InterviewAnswer, 'projectId');
 connectOneToMany(Project, ProjectKeyword, 'projectId');

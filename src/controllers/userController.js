@@ -90,10 +90,7 @@ export const getUserPortfolios = async (req, res) => {
 };
 export const getUserKeywords = async (req, res) => {
   try {
-    const {
-      user: { userId }
-    } = req;
-    const user = await User.findOne({ where: { userId } });
+    const { user } = req;
     const userKeywords = user.keywords.split(',').map(val => parseInt(val, 10));
     const { Op } = Sequelize;
     let keywords = await Keyword.findAll({
@@ -102,7 +99,8 @@ export const getUserKeywords = async (req, res) => {
       order: [['keywordId']]
     });
     keywords = keywords.map(val => ({
-      ...val.dataValues,
+      keywordId: val.keywordId,
+      name: val.name,
       count: val.projectKeywords.length
     }));
     res.json({ keywords });

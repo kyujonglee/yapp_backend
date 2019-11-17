@@ -21,6 +21,7 @@ const QUESTION = '/question';
 const POPULARITY = '/popularity';
 const VIEW_CNT = '/viewCnt';
 const QNA = '/qna';
+const CART = '/cart';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
@@ -58,7 +59,8 @@ const routes = {
   question: QUESTION,
   popularity: POPULARITY,
   viewCnt: VIEW_CNT,
-  qna: QNA
+  qna: QNA,
+  cart: CART
 };
 
 export default routes;

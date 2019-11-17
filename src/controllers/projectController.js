@@ -1,12 +1,27 @@
 import Sequelize from 'sequelize';
-import { Project, InterviewQuestion, sequelize, ProjectQna } from '../models';
+import {
+  Project,
+  InterviewQuestion,
+  sequelize,
+  ProjectQna,
+  ProjectKeyword,
+  ProjectCart
+} from '../models';
 import message from '../message';
 
 export const findProjects = async (req, res) => {
   try {
+    const { user } = req;
     const projects = await Project.findAll({
       order: [['createAt', 'DESC']],
-      limit: 12
+      limit: 12,
+      include: [
+        {
+          model: ProjectCart,
+          where: { userId: `${user ? user.userId : null}` },
+          required: false
+        }
+      ]
     });
     res.json({ projects });
   } catch (error) {
@@ -16,9 +31,17 @@ export const findProjects = async (req, res) => {
 
 export const findProjectsByPopularity = async (req, res) => {
   try {
+    const { user } = req;
     const projects = await Project.findAll({
       order: [['viewCnt', 'DESC']],
-      limit: 6
+      limit: 6,
+      include: [
+        {
+          model: ProjectCart,
+          where: { userId: `${user ? user.userId : null}` },
+          required: false
+        }
+      ]
     });
     res.json({ projects });
   } catch (error) {
@@ -43,10 +66,11 @@ export const getProjectQuestion = async (req, res) => {
 export const getProject = async (req, res) => {
   try {
     const {
-      params: { projectId }
+      params: { projectId },
+      user
     } = req;
     const { Op } = Sequelize;
-    const Qna = await Project.findOne({
+    const project = await Project.findOne({
       where: { projectId },
       include: [
         {
@@ -56,10 +80,15 @@ export const getProject = async (req, res) => {
           limit: 15,
           offset: 0,
           order: [['createAt', 'DESC']]
+        },
+        {
+          model: ProjectCart,
+          where: { userId: `${user ? user.userId : null}` },
+          required: false
         }
       ]
     });
-    res.json({ result: Qna });
+    res.json(project);
   } catch (error) {
     console.log(error);
     throw Error('cannot find project');
@@ -215,5 +244,90 @@ export const updateProjectQna = async (req, res) => {
     return res.json(false);
   } catch (error) {
     throw Error(error.message);
+  }
+};
+
+export const searchProject = async (req, res) => {
+  try {
+    const {
+      body: { keywords }
+    } = req;
+    let {
+      // eslint-disable-next-line prefer-const
+      query: { term, offset, location }
+    } = req;
+    const { Op } = Sequelize;
+    const LIMIT = 15;
+    const { user } = req;
+    if (!term) term = '';
+    if (!offset) offset = 0;
+    let condition = {
+      where: {
+        [Op.or]: [
+          { title: { [Op.substring]: term } },
+          { content: { [Op.substring]: term } }
+        ]
+      },
+      limit: LIMIT,
+      offset,
+      order: [['createAt', 'DESC']]
+    };
+    let include = [
+      {
+        model: ProjectCart,
+        where: { userId: `${user && user.userId ? user.userId : ''}` },
+        required: false
+      }
+    ];
+    if (keywords && keywords.length) {
+      include = [
+        ...include,
+        {
+          model: ProjectKeyword,
+          where: { keywordId: { [Op.in]: keywords } }
+        }
+      ];
+    }
+    if (location) {
+      condition = { ...condition, where: { ...condition.where, location } };
+    }
+    const projects = await Project.findAll({
+      ...condition,
+      include
+    });
+    res.json(projects);
+  } catch (error) {
+    console.log(error);
+    throw Error('cannot find projects');
+  }
+};
+
+export const enrollProjectCart = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      params: { projectId }
+    } = req;
+    const project = await Project.findOne({ where: { projectId } });
+    if (project) {
+      await ProjectCart.create({ title: project.title, projectId, userId });
+      return res.json(true);
+    }
+    return res.json(false);
+  } catch (error) {
+    throw Error(error.message);
+  }
+};
+
+export const deleteProjectCart = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      params: { projectId }
+    } = req;
+    await ProjectCart.destroy({ where: { userId, projectId } });
+    res.json(true);
+  } catch (error) {
+    res.json(false);
   }
 };
