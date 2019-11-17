@@ -24,6 +24,9 @@ export default (sequelize, DataTypes) =>
       location: {
         type: DataTypes.INTEGER
       },
+      expectedPeriod: {
+        type: DataTypes.INTEGER
+      },
       thumbnailImage: {
         type: DataTypes.STRING(200)
       },

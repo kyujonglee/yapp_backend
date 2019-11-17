@@ -100,7 +100,15 @@ export const enrollProject = async (req, res) => {
   try {
     const {
       user: { userId },
-      body: { title, content, role, step, location, interviewQuestions }
+      body: {
+        title,
+        content,
+        role,
+        step,
+        expectedPeriod,
+        location,
+        interviewQuestions
+      }
     } = req;
     const { projectId } = await Project.create(
       {
@@ -110,6 +118,7 @@ export const enrollProject = async (req, res) => {
         step,
         userId,
         location,
+        expectedPeriod,
         thumbnailImage: req.file ? req.file.location : null
       },
       { transaction }
@@ -122,7 +131,7 @@ export const enrollProject = async (req, res) => {
       transaction
     });
     await transaction.commit();
-    await res.json(true);
+    return res.json(true);
   } catch (error) {
     await transaction.rollback();
     throw Error(message.failEnrollProject);
