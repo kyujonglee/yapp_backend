@@ -15,6 +15,10 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.INTEGER,
         defaultValue: 0
       },
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       createAt: {
         type: DataTypes.DATE,
         allowNull: false,
