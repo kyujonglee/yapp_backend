@@ -5,7 +5,8 @@ import {
   sequelize,
   ProjectQna,
   ProjectKeyword,
-  ProjectCart
+  ProjectCart,
+  User
 } from '../models';
 import message from '../message';
 
@@ -169,6 +170,17 @@ export const getProjectQna = async (req, res) => {
     if (!offset) offset = 0;
     else offset *= LIMIT;
     const { Op } = Sequelize;
+    const userAttributes = [
+      'userId',
+      'email',
+      'name',
+      'location',
+      'phone',
+      'flag',
+      'profileImage',
+      'createAt',
+      'keywords'
+    ];
     const projectQna = await ProjectQna.findAll({
       where: {
         projectId,
@@ -176,9 +188,14 @@ export const getProjectQna = async (req, res) => {
       },
       include: [
         {
+          model: User,
+          attributes: userAttributes
+        },
+        {
           model: ProjectQna,
           as: 'answer',
-          required: false
+          required: false,
+          include: [{ model: User, attributes: userAttributes }]
         }
       ],
       limit: LIMIT,
