@@ -237,3 +237,24 @@ export const acceptApplicant = async (req, res) => {
     throw Error(error);
   }
 };
+
+export const cancelApplicant = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      body: { projectId }
+    } = req;
+
+    await Applicant.destroy({
+      where: { projectId: projectId, userId: userId }
+    });
+
+    await InterviewAnswer.destroy({
+      where: { projectId: projectId, userId: userId }
+    });
+
+    res.status(200).json({ message: 'success' });
+  } catch (error) {
+    throw Error(error);
+  }
+};

@@ -34,6 +34,7 @@ const PORTFOLIO = '/portfolio';
 const RECRUIT = '/recruit';
 const STATUS = '/status';
 const ACCEPT = '/accept';
+const CANCEL = '/cancel';
 
 const routes = {
   home: HOME,
@@ -64,7 +65,8 @@ const routes = {
   qna: QNA,
   cart: CART,
   status: STATUS,
-  accept: ACCEPT
+  accept: ACCEPT,
+  cancel: CANCEL
 };
 
 export default routes;

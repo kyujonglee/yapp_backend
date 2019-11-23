@@ -10,7 +10,8 @@ import {
   getApplicantDetail,
   getProjectCart,
   getApplicantStatus,
-  acceptApplicant
+  acceptApplicant,
+  cancelApplicant
 } from '../controllers/mypageController';
 import { onlyPrivate, uploadPortfolioImage } from '../middlewares';
 import {
@@ -43,6 +44,10 @@ mypageRouter.post(
 
 mypageRouter.get(routes.cart, onlyPrivate, getProjectCart);
 mypageRouter.get(routes.status, onlyPrivate, getApplicantStatus);
+mypageRouter.delete(
+  `${routes.status}${routes.cancel}`,
+  onlyPrivate,
+  cancelApplicant);
 
 /**
  * @swagger
@@ -365,4 +370,30 @@ mypageRouter.get(routes.status, onlyPrivate, getApplicantStatus);
     *           type: boolean
     *           example: true
     */
+
+    /**
+     * @swagger
+     * /mypage/status/cancel:
+     *   delete:
+     *     summary: 특정 프로젝트 지원 취소
+     *     tags : [My Page]
+     *     parameters:
+     *         - in: body
+     *           name: Applicant
+     *           schema:
+     *               type: object
+     *               properties:
+     *                  projectId:
+     *                    type: integer
+     *               example: {
+     *              projectId: 1,
+     *               }
+     *     responses:
+     *       200:
+     *         description: success/fail
+     *         schema:
+     *           type: boolean
+     *           example: true
+     */
+
 export default mypageRouter;
