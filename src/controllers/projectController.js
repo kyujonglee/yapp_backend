@@ -5,7 +5,8 @@ import {
   sequelize,
   ProjectQna,
   ProjectKeyword,
-  ProjectCart
+  ProjectCart,
+  User
 } from '../models';
 import message from '../message';
 
@@ -169,6 +170,17 @@ export const getProjectQna = async (req, res) => {
     if (!offset) offset = 0;
     else offset *= LIMIT;
     const { Op } = Sequelize;
+    const userAttributes = [
+      'userId',
+      'email',
+      'name',
+      'location',
+      'phone',
+      'flag',
+      'profileImage',
+      'createAt',
+      'keywords'
+    ];
     const projectQna = await ProjectQna.findAll({
       where: {
         projectId,
@@ -176,9 +188,14 @@ export const getProjectQna = async (req, res) => {
       },
       include: [
         {
+          model: User,
+          attributes: userAttributes
+        },
+        {
           model: ProjectQna,
           as: 'answer',
-          required: false
+          required: false,
+          include: [{ model: User, attributes: userAttributes }]
         }
       ],
       limit: LIMIT,
@@ -202,13 +219,16 @@ export const postProjectQna = async (req, res) => {
       body: { parentId }
     } = req;
     let qna;
+
+    const project = await Project.findOne({ where: { projectId } });
+    if (!project) return res.json(false);
+
     if (!parentId) {
       parentId = null;
     } else {
       qna = await ProjectQna.findOne({ where: { projectQnaId: parentId } });
     }
     if (projectId && content) {
-      const project = await Project.findOne({ where: { projectId } });
       if (qna) {
         if (project.userId === userId || qna.userId === userId) {
           await ProjectQna.create({ projectId, userId, content, parentId });
@@ -232,8 +252,8 @@ export const removeProjectQna = async (req, res) => {
       body: { projectQnaId }
     } = req;
     const projectQna = await ProjectQna.findOne({ where: { projectQnaId } });
-    if (projectQna.userId === userId) {
-      await ProjectQna.destroy({ where: { projectQnaId } });
+    if (projectQna.userId === userId && !projectQna.isDelete) {
+      await ProjectQna.update({ isDelete: true }, { where: { projectQnaId } });
       res.json(true);
     }
     return res.json(false);
@@ -249,7 +269,7 @@ export const updateProjectQna = async (req, res) => {
       body: { projectQnaId, content }
     } = req;
     const projectQna = await ProjectQna.findOne({ where: { projectQnaId } });
-    if (projectQna.userId === userId) {
+    if (projectQna.userId === userId && !projectQna.isDelete) {
       await ProjectQna.update({ content }, { where: { projectQnaId } });
       res.json(true);
     }
