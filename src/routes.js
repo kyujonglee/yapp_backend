@@ -32,6 +32,9 @@ const APPLICANTS = '/applicants';
 
 const PORTFOLIO = '/portfolio';
 const RECRUIT = '/recruit';
+const STATUS = '/status';
+const ACCEPT = '/accept';
+const CANCEL = '/cancel';
 
 const routes = {
   home: HOME,
@@ -60,7 +63,10 @@ const routes = {
   popularity: POPULARITY,
   viewCnt: VIEW_CNT,
   qna: QNA,
-  cart: CART
+  cart: CART,
+  status: STATUS,
+  accept: ACCEPT,
+  cancel: CANCEL
 };
 
 export default routes;

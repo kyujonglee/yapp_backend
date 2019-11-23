@@ -8,7 +8,10 @@ import {
   deletePortfolio,
   getRecruit,
   getApplicantDetail,
-  getProjectCart
+  getProjectCart,
+  getApplicantStatus,
+  acceptApplicant,
+  cancelApplicant
 } from '../controllers/mypageController';
 import { onlyPrivate, uploadPortfolioImage } from '../middlewares';
 import {
@@ -34,8 +37,17 @@ mypageRouter.post(
   getApplicantDetail
 );
 mypageRouter.get(routes.recruit, onlyPrivate, getRecruit);
+mypageRouter.post(
+  `${routes.recruit}${routes.projectId}${routes.accept}`,
+  onlyPrivate,
+  acceptApplicant);
 
 mypageRouter.get(routes.cart, onlyPrivate, getProjectCart);
+mypageRouter.get(routes.status, onlyPrivate, getApplicantStatus);
+mypageRouter.delete(
+  `${routes.status}${routes.cancel}`,
+  onlyPrivate,
+  cancelApplicant);
 
 /**
  * @swagger
@@ -299,4 +311,89 @@ mypageRouter.get(routes.cart, onlyPrivate, getProjectCart);
   *                 $ref: '#/definitions/ProjectCart'
   *               example : [{projectId: 1, title: '해커톤 팀원 모집', role: 5}, {projectId: 2, title: '프로젝트 팀원 모집', role: 4}]
   */
+
+  /**
+   * @swagger
+   * /mypage/status:
+   *   get:
+   *     summary: 사용자의 지원 현황 조회
+   *     tags: [My Page]
+   *     responses:
+   *       200:
+   *         description: Applicant list
+   *         schema:
+   *           type: object
+   *           properties:
+   *             applicantCnt:
+   *               type: integer
+   *               items:
+   *                 $ref: '#/definitions/Applicant'
+   *                 example : 1
+   *             seenCnt:
+   *               type: integer
+   *               items:
+   *                 $ref: '#/definitions/Applicant'
+   *                 example : 1
+   *             acceptedCnt:
+   *               type: integer
+   *               items:
+   *                 $ref: '#/definitions/Applicant'
+   *                 example : 1
+   *             list:
+   *               type: array
+   *               items:
+   *                 $ref: '#/definitions/Applicant'
+   *                 example : {projectId: 1, title: '프로젝트 팀원 모집', role: 3, isClosed: 0, seenFlag: 1, isAccepted: 0}
+   */
+
+   /**
+    * @swagger
+    * /mypage/recruit/{projectId}/accept:
+    *   post:
+    *     summary: 특정 모집글에 지원한 지원자를 승인함
+    *     tags: [My Page]
+    *     parameters:
+    *         - in: body
+    *           name: applicant
+    *           schema:
+    *               type: object
+    *               properties:
+    *                  applicantId:
+    *                    type: integer
+    *               example: {
+    *              applicantId: 1,
+    *               }
+    *     responses:
+    *       200:
+    *         description: success/fail
+    *         schema:
+    *           type: boolean
+    *           example: true
+    */
+
+    /**
+     * @swagger
+     * /mypage/status/cancel:
+     *   delete:
+     *     summary: 특정 프로젝트 지원 취소
+     *     tags : [My Page]
+     *     parameters:
+     *         - in: body
+     *           name: Applicant
+     *           schema:
+     *               type: object
+     *               properties:
+     *                  projectId:
+     *                    type: integer
+     *               example: {
+     *              projectId: 1,
+     *               }
+     *     responses:
+     *       200:
+     *         description: success/fail
+     *         schema:
+     *           type: boolean
+     *           example: true
+     */
+
 export default mypageRouter;
