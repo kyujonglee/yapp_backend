@@ -32,6 +32,7 @@ const APPLICANTS = '/applicants';
 
 const PORTFOLIO = '/portfolio';
 const RECRUIT = '/recruit';
+const STATUS = '/status';
 
 const routes = {
   home: HOME,
@@ -60,7 +61,8 @@ const routes = {
   popularity: POPULARITY,
   viewCnt: VIEW_CNT,
   qna: QNA,
-  cart: CART
+  cart: CART,
+  status: STATUS
 };
 
 export default routes;

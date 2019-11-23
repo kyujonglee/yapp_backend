@@ -158,6 +158,11 @@ export const getApplicantDetail = async (req, res) => {
       replacements: { projectId, userId: applicantId }
     });
 
+    await Applicant.update(
+      { seenFlag : 1},
+      { where: { userId: applicantId } }
+    );
+
     res.json({
       project: projectAndInterview,
       applicant,
@@ -180,6 +185,36 @@ export const getProjectCart = async (req, res) => {
     });
 
     res.json({ 'cart':carts[0] });
+
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+export const getApplicantStatus = async (req, res) => {
+  try {
+    const {
+      user: { userId }
+    } = req;
+
+    const statusQuery = 'SELECT p.projectId, p.title, p.role, p.isClosed, a.seenFlag, a.isAccepted FROM project as p, applicant as a WHERE a.userId=:userId AND a.projectId=p.projectId order by p.isClosed ASC';
+    var status = await sequelize.query(statusQuery, {
+      replacements: { userId }
+    });
+    status = status[0];
+
+    let seenFlagCnt = 0;
+    let acceptedCnt = 0;
+    for (const row of status){
+      if (row.seenFlag == 1){
+        seenFlagCnt+=1;
+      }
+      if (row.isAccepted == 1){
+        acceptedCnt+=1;
+      }
+    }
+
+    res.json({'applicantCnt':status.length, 'seenCnt':seenFlagCnt, 'acceptedCnt':acceptedCnt, 'list':status});
 
   } catch (error) {
     throw Error(error);
