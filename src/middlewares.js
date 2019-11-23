@@ -29,8 +29,17 @@ const multerProjectImage = multer({
   })
 });
 
+const multerPortfolioImage = multer({
+  storage: multerS3({
+    s3,
+    acl: 'public-read',
+    bucket: 'yapp-backend/portfolio'
+  })
+});
+
 export const uploadAvatar = multerAvatar.single('avatar');
 export const uploadProjectImage = multerProjectImage.single('thumbnailImage');
+export const uploadPortfolioImage = multerProjectImage.single('portfolioImage');
 
 export const authenticateJwt = (req, res, next) =>
   passport.authenticate('jwt', { sessions: false }, (error, user) => {

@@ -53,7 +53,7 @@ export const addPorfolio = async (req, res) => {
       title,
       myRole,
       useStack,
-      thumbnailImage,
+      thumbnailImage: req.file ? req.file.location : null,
       attachFile,
       userId
     });
@@ -70,7 +70,11 @@ export const updatePortfolio = async (req, res) => {
     } = req;
 
     await Portfolio.update(
-      { title, myRole, useStack, thumbnailImage, attachFile },
+      { title,
+        myRole,
+        useStack,
+        thumbnailImage: req.file ? req.file.location : null,
+        attachFile },
       { where: { portfolioId } }
     );
     res.status(200).json({ message: 'success' });
@@ -159,6 +163,24 @@ export const getApplicantDetail = async (req, res) => {
       applicant,
       portfolios: portfolios[0]
     });
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+export const getProjectCart = async (req, res) => {
+  try {
+    const {
+      user: { userId }
+    } = req;
+
+    const cartQuery = 'SELECT c.projectId, c.title, p.role FROM projectCart as c, project as p WHERE c.userId=:userId AND c.projectId=p.projectId';
+    const carts = await sequelize.query(cartQuery, {
+      replacements: { userId }
+    });
+
+    res.json({ 'cart':carts[0] });
+
   } catch (error) {
     throw Error(error);
   }
