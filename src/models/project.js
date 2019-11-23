@@ -16,20 +16,27 @@ export default (sequelize, DataTypes) =>
         defaultValue: ''
       },
       role: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       step: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false
       },
       currentMember: {
         type: DataTypes.STRING,
         defaultValue: '000'
       },
       location: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false
       },
       expectedPeriod: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       thumbnailImage: {
         type: DataTypes.STRING(200)
@@ -40,6 +47,10 @@ export default (sequelize, DataTypes) =>
       viewCnt: {
         type: DataTypes.INTEGER,
         defaultValue: 0
+      },
+      isClosed: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       },
       createAt: {
         type: DataTypes.DATE,

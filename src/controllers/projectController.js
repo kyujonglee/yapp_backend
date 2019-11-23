@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import { isNull } from 'util';
 import {
   Project,
   InterviewQuestion,
@@ -91,7 +92,6 @@ export const getProject = async (req, res) => {
     });
     res.json(project);
   } catch (error) {
-    console.log(error);
     throw Error('cannot find project');
   }
 };
@@ -104,13 +104,29 @@ export const enrollProject = async (req, res) => {
       body: {
         title,
         content,
-        role,
+        location,
         step,
         expectedPeriod,
-        location,
+        role,
+        currentMember,
+        keywords,
         interviewQuestions
       }
     } = req;
+    if (
+      isNull(
+        title,
+        content,
+        location,
+        step,
+        expectedPeriod,
+        role,
+        currentMember
+      )
+    ) {
+      return res.json(false);
+    }
+
     const { projectId } = await Project.create(
       {
         title,
@@ -120,19 +136,31 @@ export const enrollProject = async (req, res) => {
         userId,
         location,
         expectedPeriod,
+        currentMember,
         thumbnailImage: req.file ? req.file.location : null
       },
       { transaction }
     );
-    const parseInterviewQuestions = interviewQuestions.map(question => ({
-      content: question.content,
-      projectId
-    }));
-    await InterviewQuestion.bulkCreate(parseInterviewQuestions, {
-      transaction
-    });
+
+    if (keywords && keywords.length) {
+      const parseKeywords = keywords.map(keywordId => ({
+        projectId,
+        keywordId
+      }));
+      await ProjectKeyword.bulkCreate(parseKeywords, { transaction });
+    }
+    if (interviewQuestions && interviewQuestions.length) {
+      const parseInterviewQuestions = interviewQuestions.map(question => ({
+        content: question.content,
+        role: question.role,
+        projectId
+      }));
+      await InterviewQuestion.bulkCreate(parseInterviewQuestions, {
+        transaction
+      });
+    }
     await transaction.commit();
-    return res.json(true);
+    return res.json({ projectId });
   } catch (error) {
     await transaction.rollback();
     throw Error(message.failEnrollProject);
@@ -153,7 +181,6 @@ export const updateProjectViewCnt = async (req, res) => {
     );
     return res.json(true);
   } catch (error) {
-    console.log(error);
     throw Error(error.message);
   }
 };
