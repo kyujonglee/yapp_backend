@@ -21,6 +21,10 @@ export default (sequelize, DataTypes) =>
       step: {
         type: DataTypes.INTEGER
       },
+      currentMember: {
+        type: DataTypes.STRING,
+        defaultValue: '000'
+      },
       location: {
         type: DataTypes.INTEGER
       },
@@ -31,7 +35,7 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.STRING(200)
       },
       attachFile: {
-        type: DataTypes.STRING(200),
+        type: DataTypes.STRING(200)
       },
       viewCnt: {
         type: DataTypes.INTEGER,
