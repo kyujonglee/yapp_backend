@@ -36,16 +36,14 @@ export const postLogin = async (req, res) => {
       body: { email, password }
     } = req;
     const user = await User.findOne({ where: { email } });
-    if (!user) {
-      throw Error('user not found');
-    }
+    if (!user) return res.json(false);
+
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
       const token = generateToken(user.userId);
-      res.json({ token });
-    } else {
-      throw Error(message.dismatchPassword);
+      return res.json({ token });
     }
+    return res.json(false);
   } catch (error) {
     throw Error(error);
   }
@@ -54,8 +52,10 @@ export const postLogin = async (req, res) => {
 export const getUser = (req, res) => {
   const { user } = req;
   if (user) {
-    const { userId, email, name, profileImage } = user;
-    res.json({ user: { userId, email, name, profileImage } });
+    const { userId, email, name, profileImage, location, phone, flag } = user;
+    res.json({
+      user: { userId, email, name, profileImage, location, phone, flag }
+    });
   } else {
     res.json({ message: '해당 사용자가 존재하지 않습니다.' });
   }
