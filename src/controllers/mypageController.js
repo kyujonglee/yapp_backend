@@ -220,3 +220,20 @@ export const getApplicantStatus = async (req, res) => {
     throw Error(error);
   }
 };
+
+export const acceptApplicant = async (req, res) => {
+  try {
+    const {
+      body: { applicantId },
+      params: { projectId }
+    } = req;
+
+    await Applicant.update(
+      { isAccepted : 1},
+      { where : { userId: applicantId, projectId: projectId}}
+    );
+    res.status(200).json({ message: 'success' });
+  } catch (error) {
+    throw Error(error);
+  }
+};

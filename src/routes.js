@@ -33,6 +33,7 @@ const APPLICANTS = '/applicants';
 const PORTFOLIO = '/portfolio';
 const RECRUIT = '/recruit';
 const STATUS = '/status';
+const ACCEPT = '/accept';
 
 const routes = {
   home: HOME,
@@ -62,7 +63,8 @@ const routes = {
   viewCnt: VIEW_CNT,
   qna: QNA,
   cart: CART,
-  status: STATUS
+  status: STATUS,
+  accept: ACCEPT
 };
 
 export default routes;
