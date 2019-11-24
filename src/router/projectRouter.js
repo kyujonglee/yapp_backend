@@ -13,7 +13,8 @@ import {
   updateProjectQna,
   searchProject,
   enrollProjectCart,
-  deleteProjectCart
+  deleteProjectCart,
+  projectDeadline
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -67,6 +68,32 @@ projectRouter.delete(
   onlyPrivate,
   deleteProjectCart
 );
+
+// deadline
+projectRouter.patch(
+  `${routes.projectId}${routes.deadline}`,
+  onlyPrivate,
+  projectDeadline
+);
+
+/**
+ * @swagger
+ * /projects/{projectId}/deadline:
+ *   patch:
+ *     summary: project 모집마감
+ *     tags: [Project]
+ *     parameters:
+ *        - in: path
+ *          name: projectId
+ *          schema:
+ *            type: integer
+ *            example: 3
+ *     responses:
+ *        200:
+ *            schema:
+ *               type: boolean
+ *               example: true
+ */
 
 /**
  * @swagger
