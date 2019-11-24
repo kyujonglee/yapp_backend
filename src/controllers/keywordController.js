@@ -1,4 +1,4 @@
-import { User, Keyword } from '../models';
+import { User, Keyword, ProjectKeyword } from '../models';
 import { getKeywordsDbAndUser } from '../services/keywordService';
 
 export const getMypageKeywords = async (req, res) => {
@@ -31,7 +31,14 @@ export const updateKeyword = async (req, res) => {
 
 export const getKeywords = async (req, res) => {
   try {
-    const keywords = await Keyword.findAll({});
+    const keywords = await Keyword.findAll({
+      include: [{ model: ProjectKeyword }]
+    }).map(keyword => ({
+      keywordId: keyword.keywordId,
+      name: keyword.name,
+      count: keyword.projectKeywords.length
+    }));
+
     res.json(keywords);
   } catch (error) {
     throw Error(error.message);
