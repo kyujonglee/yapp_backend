@@ -124,7 +124,7 @@ export const enrollProject = async (req, res) => {
         currentMember
       )
     ) {
-      return res.json(false);
+      return res.json({ projectId: null });
     }
 
     const { projectId } = await Project.create(
@@ -149,12 +149,16 @@ export const enrollProject = async (req, res) => {
       }));
       await ProjectKeyword.bulkCreate(parseKeywords, { transaction });
     }
+
     if (interviewQuestions && interviewQuestions.length) {
-      const parseInterviewQuestions = interviewQuestions.map(question => ({
-        content: question.content,
-        role: question.role,
-        projectId
-      }));
+      const parseInterviewQuestions = interviewQuestions.map(
+        (question, idx) => ({
+          sn: idx + 1,
+          content: question.content,
+          role: question.role,
+          projectId
+        })
+      );
       await InterviewQuestion.bulkCreate(parseInterviewQuestions, {
         transaction
       });
@@ -163,6 +167,7 @@ export const enrollProject = async (req, res) => {
     return res.json({ projectId });
   } catch (error) {
     await transaction.rollback();
+    console.log(error);
     throw Error(message.failEnrollProject);
   }
 };
@@ -191,8 +196,8 @@ export const updateProject = async (req, res) => {
       include: [{ model: ProjectKeyword }, { model: InterviewQuestion }]
     });
 
-    if (!project) return res.json(false);
-    if (project.userId !== userId) return res.json(false);
+    if (!project) return res.json({ projectId: null });
+    if (project.userId !== userId) return res.json({ projectId: null });
     if (
       isNull(
         content,
@@ -204,7 +209,7 @@ export const updateProject = async (req, res) => {
         currentMember
       )
     ) {
-      return res.json(false);
+      return res.json({ projectId: null });
     }
 
     transaction = await sequelize.transaction();
@@ -255,6 +260,7 @@ export const updateProject = async (req, res) => {
     await transaction.commit();
     return res.json({ projectId });
   } catch (error) {
+    console.log(error);
     await transaction.rollback();
     throw Error('프로젝트를 수정하지 못했습니다.');
   }
