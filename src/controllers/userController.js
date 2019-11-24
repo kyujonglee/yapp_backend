@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import Sequelize from 'sequelize';
 import { User, Portfolio, ProjectKeyword, Keyword } from '../models';
-import { generateToken } from '../util';
+import { generateToken } from '../utils';
 import message from '../message';
 
 const saltRounds = 10;

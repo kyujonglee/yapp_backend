@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) =>
       },
       isAccepted: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
       }
     },
     { timestamps: false, freezeTableName: true }

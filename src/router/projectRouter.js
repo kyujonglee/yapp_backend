@@ -13,7 +13,8 @@ import {
   updateProjectQna,
   searchProject,
   enrollProjectCart,
-  deleteProjectCart
+  deleteProjectCart,
+  updateProject
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -30,6 +31,7 @@ projectRouter.post(
   onlyPrivate,
   enrollApplicant
 );
+projectRouter.patch(`${routes.projectId}`, onlyPrivate, updateProject);
 projectRouter.patch(
   `${routes.projectId}${routes.viewCnt}`,
   updateProjectViewCnt

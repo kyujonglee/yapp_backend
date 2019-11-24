@@ -5,6 +5,7 @@ import cors from 'cors';
 import passport from 'passport';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import createError from 'http-errors';
 import swaggerDefinition from './swagger';
 
 import './passport';
@@ -45,5 +46,15 @@ const swaggerOption = {
 const swaggerSpec = swaggerJSDoc(swaggerOption);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use((req, res, next) => {
+  next(createError(404));
+});
+
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, _) => {
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 export default app;

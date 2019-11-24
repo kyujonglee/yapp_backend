@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) =>
       },
       currentMember: {
         type: DataTypes.STRING,
-        defaultValue: '000'
+        defaultValue: 0
       },
       location: {
         type: DataTypes.INTEGER,
@@ -36,7 +36,7 @@ export default (sequelize, DataTypes) =>
       expectedPeriod: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: 0
       },
       thumbnailImage: {
         type: DataTypes.STRING(200)
@@ -48,10 +48,6 @@ export default (sequelize, DataTypes) =>
         type: DataTypes.INTEGER,
         defaultValue: 0
       },
-      isClosed: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-      },
       createAt: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -59,7 +55,7 @@ export default (sequelize, DataTypes) =>
       },
       isClosed: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
       }
     },
     { timestamps: false, freezeTableName: true }
