@@ -8,6 +8,10 @@ export default (sequelize, DataTypes) =>
       },
       sn: {
         type: DataTypes.INTEGER
+      },
+      role: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       }
     },
     { timestamps: false, freezeTableName: true }

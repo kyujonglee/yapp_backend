@@ -16,22 +16,33 @@ export default (sequelize, DataTypes) =>
         defaultValue: ''
       },
       role: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       step: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false
+      },
+      currentMember: {
+        type: DataTypes.STRING,
+        defaultValue: 0
       },
       location: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false
       },
       expectedPeriod: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       thumbnailImage: {
         type: DataTypes.STRING(200)
       },
       attachFile: {
-        type: DataTypes.STRING(200),
+        type: DataTypes.STRING(200)
       },
       viewCnt: {
         type: DataTypes.INTEGER,
@@ -44,7 +55,7 @@ export default (sequelize, DataTypes) =>
       },
       isClosed: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
       }
     },
     { timestamps: false, freezeTableName: true }

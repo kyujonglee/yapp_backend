@@ -13,7 +13,8 @@ import {
   updateProjectQna,
   searchProject,
   enrollProjectCart,
-  deleteProjectCart
+  deleteProjectCart,
+  updateProject
 } from '../controllers/projectController';
 import { enrollApplicant } from '../controllers/applicantController';
 import { onlyPrivate, uploadProjectImage } from '../middlewares';
@@ -30,6 +31,7 @@ projectRouter.post(
   onlyPrivate,
   enrollApplicant
 );
+projectRouter.patch(`${routes.projectId}`, onlyPrivate, updateProject);
 projectRouter.patch(
   `${routes.projectId}${routes.viewCnt}`,
   updateProjectViewCnt
@@ -432,6 +434,11 @@ projectRouter.delete(
  *                              content:
  *                                  type: string
  *                          example: {"content":"참여할 것입니까?"}
+ *                  keywords:
+ *                      type: array
+ *                      items:
+ *                          type: integer
+ *                      example: [1,2,3]
  *
  *          example: {
  *              title: '안녕하세요 타이틀입니다',
@@ -497,6 +504,67 @@ projectRouter.delete(
  *         schema:
  *           type: boolean
  *         example: true
+ */
+
+/**
+ * @swagger
+ * /projects/{projectId}:
+ *   patch:
+ *     summary: Project update
+ *     tags: [Project]
+ *     parameters:
+ *       - in: path
+ *         name: projectId
+ *         schema:
+ *              type: integer
+ *         required: true
+ *       - in: body
+ *         name: project 정보
+ *         schema:
+ *            type: object
+ *            properties:
+ *               title:
+ *                  type: string
+ *                  example: "프로젝트 제목"
+ *               content:
+ *                  type: string
+ *                  example: '프로젝트 내용'
+ *               role: 
+ *                  type: integer
+ *               step:
+ *                  type: integer
+ *               location:
+ *                  type: integer
+ *               expectedPeriod:
+ *                  type: integer
+ *               currentMember:
+ *                  type: integer
+ *               thumbnailImage:  
+ *                  type: string
+ *               keywords:
+ *                  type: array
+ *                  items:
+ *                     type: integer
+ *                     example: 1,2,3
+ *               interviewQuestions:
+ *                  type: array
+ *                  items:
+ *                     type: object
+ *                     properties:
+ *                        content:
+ *                           type: string
+ *                        role:
+ *                           type: integer
+ *     responses:
+ *       200:
+ *         description: Project update
+ *         schema:
+ *            type: object
+ *            properties:
+ *               projectId:
+ *                  type: integer
+ *
+ *
  */
 
 /**
