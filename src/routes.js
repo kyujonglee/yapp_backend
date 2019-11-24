@@ -22,6 +22,7 @@ const POPULARITY = '/popularity';
 const VIEW_CNT = '/viewCnt';
 const QNA = '/qna';
 const CART = '/cart';
+const DEADLINE = '/deadline';
 
 const MYPAGE = '/mypage';
 const SUPPORTS = '/supports';
@@ -66,7 +67,8 @@ const routes = {
   cart: CART,
   status: STATUS,
   accept: ACCEPT,
-  cancel: CANCEL
+  cancel: CANCEL,
+  deadline: DEADLINE
 };
 
 export default routes;

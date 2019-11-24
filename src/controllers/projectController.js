@@ -494,3 +494,19 @@ export const deleteProjectCart = async (req, res) => {
     res.json(false);
   }
 };
+
+export const projectDeadline = async (req, res) => {
+  try {
+    const {
+      user: { userId },
+      params: { projectId }
+    } = req;
+    const project = await Project.findOne({ where: { projectId } });
+    if (!project) return res.json(false);
+    if (project.userId !== userId) return res.json(false);
+    await Project.update({ isClosed: true }, { where: { projectId } });
+    return res.json(true);
+  } catch (error) {
+    throw Error('Project 모집 마감이 정상적으로 작동하지 않았습니다.');
+  }
+};
