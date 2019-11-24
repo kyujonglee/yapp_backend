@@ -20,6 +20,10 @@ export default (sequelize, DataTypes) =>
       seenFlag: {
         type: DataTypes.BOOLEAN,
         defaultValue: 0
+      },
+      isAccepted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: 0
       }
     },
     { timestamps: false, freezeTableName: true }
