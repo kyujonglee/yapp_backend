@@ -10,6 +10,10 @@ export default (sequelize, DataTypes) =>
       content: {
         type: DataTypes.TEXT,
         allowNull: false
+      },
+      role: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       }
     },
     { timestamps: false, freezeTableName: true }

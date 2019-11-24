@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     'import/first': 0,
     'no-dynamic-require': 0,
-    'import/prefer-default-export': 0
+    'import/prefer-default-export': 0,
+    'no-restricted-syntax': 0
   }
 };
