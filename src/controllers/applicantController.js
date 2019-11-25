@@ -36,26 +36,30 @@ export const enrollApplicant = async (req, res) => {
           userId,
           portfolioId
         }));
+        await ApplicantPortfolio.bulkCreate(applicantPortfolios, {
+          transaction
+        });
       }
       let applicantAnswers;
+      console.log(role);
       if (answers && answers.length) {
-        applicantAnswers = answers.map(answer => ({
+        applicantAnswers = answers.map((answer, idx) => ({
           projectId,
           userId,
-          sn: answer.sn,
-          content: answer.content
+          sn: idx + 1,
+          content: answer.content,
+          role
         }));
+        await InterviewAnswer.bulkCreate(applicantAnswers, { transaction });
       }
-      await ApplicantPortfolio.bulkCreate(applicantPortfolios, { transaction });
-      await InterviewAnswer.bulkCreate(applicantAnswers, { transaction });
       await transaction.commit();
       res.json(true);
     } else {
       res.json(false);
     }
   } catch (error) {
-    console.log(error);
     await transaction.rollback();
+    console.log(error);
     throw Error(message.failApplicant);
   }
 };

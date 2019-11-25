@@ -524,7 +524,7 @@ projectRouter.patch(
  *                             type: integer
  *                         content:
  *                             type: string
- *                     example: {"sn": 1, "content": "네 참여할 수 있습니다."}
+ *                     example: { "content": "네 참여할 수 있습니다." }
  *     responses:
  *       200:
  *         description: Project detail
