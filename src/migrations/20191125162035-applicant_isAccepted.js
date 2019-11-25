@@ -3,7 +3,7 @@ export default {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.addColumn(
-        'Applicant',
+        'applicant',
         'isAccepted',
         {
           type: Sequelize.BOOLEAN,
