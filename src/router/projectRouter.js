@@ -460,7 +460,9 @@ projectRouter.patch(
  *                          properties:
  *                              content:
  *                                  type: string
- *                          example: {"content":"참여할 것입니까?"}
+ *                              role:
+ *                                  type: integer
+ *                          example: {"content":"참여할 것입니까?", "role": 1}
  *                  keywords:
  *                      type: array
  *                      items:
