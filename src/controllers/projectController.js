@@ -167,7 +167,6 @@ export const enrollProject = async (req, res) => {
     return res.json({ projectId });
   } catch (error) {
     await transaction.rollback();
-    console.log(error);
     throw Error(message.failEnrollProject);
   }
 };
@@ -260,7 +259,6 @@ export const updateProject = async (req, res) => {
     await transaction.commit();
     return res.json({ projectId });
   } catch (error) {
-    console.log(error);
     await transaction.rollback();
     throw Error('프로젝트를 수정하지 못했습니다.');
   }
@@ -301,8 +299,6 @@ export const getProjectQna = async (req, res) => {
       'email',
       'name',
       'location',
-      'phone',
-      'flag',
       'profileImage',
       'createAt',
       'keywords'

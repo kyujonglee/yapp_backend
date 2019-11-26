@@ -41,7 +41,6 @@ export const enrollApplicant = async (req, res) => {
         });
       }
       let applicantAnswers;
-      console.log(role);
       if (answers && answers.length) {
         applicantAnswers = answers.map((answer, idx) => ({
           projectId,
@@ -59,7 +58,6 @@ export const enrollApplicant = async (req, res) => {
     }
   } catch (error) {
     await transaction.rollback();
-    console.log(error);
     throw Error(message.failApplicant);
   }
 };
