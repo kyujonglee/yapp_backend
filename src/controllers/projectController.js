@@ -151,14 +151,11 @@ export const enrollProject = async (req, res) => {
     }
 
     if (interviewQuestions && interviewQuestions.length) {
-      const parseInterviewQuestions = interviewQuestions.map(
-        (question, idx) => ({
-          sn: idx + 1,
-          content: question.content,
-          role: question.role,
-          projectId
-        })
-      );
+      const parseInterviewQuestions = interviewQuestions.map(question => ({
+        content: question.content,
+        role: question.role,
+        projectId
+      }));
       await InterviewQuestion.bulkCreate(parseInterviewQuestions, {
         transaction
       });
@@ -166,6 +163,7 @@ export const enrollProject = async (req, res) => {
     await transaction.commit();
     return res.json({ projectId });
   } catch (error) {
+    console.log(error);
     await transaction.rollback();
     throw Error(message.failEnrollProject);
   }
