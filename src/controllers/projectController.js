@@ -108,10 +108,11 @@ export const enrollProject = async (req, res) => {
         step,
         expectedPeriod,
         role,
-        currentMember,
-        keywords,
-        interviewQuestions
+        currentMember
       }
+    } = req;
+    let {
+      body: { keywords, interviewQuestions }
     } = req;
     if (
       isNull(
@@ -143,6 +144,7 @@ export const enrollProject = async (req, res) => {
     );
 
     if (keywords && keywords.length) {
+      keywords = JSON.parse(keywords);
       const parseKeywords = keywords.map(keywordId => ({
         projectId,
         keywordId
@@ -151,6 +153,7 @@ export const enrollProject = async (req, res) => {
     }
 
     if (interviewQuestions && interviewQuestions.length) {
+      interviewQuestions = JSON.parse(interviewQuestions);
       const parseInterviewQuestions = interviewQuestions.map(question => ({
         content: question.content,
         role: question.role,
