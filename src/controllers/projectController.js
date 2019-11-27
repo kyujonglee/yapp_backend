@@ -223,7 +223,9 @@ export const updateProject = async (req, res) => {
         location,
         expectedPeriod,
         currentMember,
-        thumbnailImage: req.file ? req.file.location : null
+        thumbnailImage: req.file
+          ? req.file.location
+          : project.thumbnailImage || null
       },
       { where: { projectId } },
       { transaction }
@@ -241,18 +243,20 @@ export const updateProject = async (req, res) => {
     }
 
     if (keywords && keywords.length) {
-      const parseKeywords = keywords.map(keywordId => ({
+      const parseKeywords = JSON.parse(keywords).map(keywordId => ({
         projectId,
         keywordId
       }));
       await ProjectKeyword.bulkCreate(parseKeywords, { transaction });
     }
     if (interviewQuestions && interviewQuestions.length) {
-      const parseInterviewQuestions = interviewQuestions.map(question => ({
-        content: question.content,
-        role: question.role,
-        projectId
-      }));
+      const parseInterviewQuestions = JSON.parse(interviewQuestions).map(
+        question => ({
+          content: question.content,
+          role: question.role,
+          projectId
+        })
+      );
       await InterviewQuestion.bulkCreate(parseInterviewQuestions, {
         transaction
       });

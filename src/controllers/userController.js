@@ -112,7 +112,7 @@ export const getUserKeywords = async (req, res) => {
 export const updateUserProfile = async (req, res) => {
   try {
     const {
-      user: { userId },
+      user,
       body: { name, location, phone, flag }
     } = req;
     await User.update(
@@ -121,9 +121,9 @@ export const updateUserProfile = async (req, res) => {
         location,
         phone,
         flag,
-        profileImage: req.file ? req.file.location : null
+        profileImage: req.file ? req.file.location : user.profileImage || null
       },
-      { where: { userId } }
+      { where: { userId: user.userId } }
     );
     res.json(true);
   } catch (error) {
