@@ -176,7 +176,6 @@ export const updateProject = async (req, res) => {
   try {
     const {
       user: { userId },
-      params: { projectId },
       body: {
         title,
         content,
@@ -189,6 +188,12 @@ export const updateProject = async (req, res) => {
         interviewQuestions
       }
     } = req;
+
+    let {
+      params: { projectId }
+    } = req;
+
+    if (typeof projectId === 'string') projectId = parseInt(projectId, 10);
 
     const project = await Project.findOne({
       where: { projectId },
