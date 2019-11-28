@@ -166,7 +166,6 @@ export const enrollProject = async (req, res) => {
     await transaction.commit();
     return res.json({ projectId });
   } catch (error) {
-    console.log(error);
     await transaction.rollback();
     throw Error(message.failEnrollProject);
   }
@@ -177,6 +176,7 @@ export const updateProject = async (req, res) => {
   try {
     const {
       user: { userId },
+      params: { projectId },
       body: {
         title,
         content,
@@ -187,8 +187,7 @@ export const updateProject = async (req, res) => {
         currentMember,
         keywords,
         interviewQuestions
-      },
-      params: { projectId }
+      }
     } = req;
 
     const project = await Project.findOne({
@@ -198,10 +197,11 @@ export const updateProject = async (req, res) => {
 
     if (!project) return res.json({ projectId: null });
     if (project.userId !== userId) return res.json({ projectId: null });
+
     if (
       isNull(
-        content,
         title,
+        content,
         location,
         step,
         expectedPeriod,
@@ -264,6 +264,7 @@ export const updateProject = async (req, res) => {
     await transaction.commit();
     return res.json({ projectId });
   } catch (error) {
+    console.log(error);
     await transaction.rollback();
     throw Error('프로젝트를 수정하지 못했습니다.');
   }

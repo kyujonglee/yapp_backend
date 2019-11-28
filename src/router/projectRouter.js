@@ -32,7 +32,12 @@ projectRouter.post(
   onlyPrivate,
   enrollApplicant
 );
-projectRouter.patch(`${routes.projectId}`, onlyPrivate, updateProject);
+projectRouter.put(
+  `${routes.projectId}`,
+  onlyPrivate,
+  uploadProjectImage,
+  updateProject
+);
 projectRouter.patch(
   `${routes.projectId}${routes.viewCnt}`,
   updateProjectViewCnt
@@ -558,7 +563,7 @@ projectRouter.patch(
  *               content:
  *                  type: string
  *                  example: '프로젝트 내용'
- *               role: 
+ *               role:
  *                  type: integer
  *               step:
  *                  type: integer
@@ -568,7 +573,7 @@ projectRouter.patch(
  *                  type: integer
  *               currentMember:
  *                  type: integer
- *               thumbnailImage:  
+ *               thumbnailImage:
  *                  type: string
  *               keywords:
  *                  type: array
