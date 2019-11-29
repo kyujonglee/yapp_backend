@@ -161,7 +161,7 @@ export const getApplicantDetail = async (req, res) => {
     const projectAndInterview = await Project.findAll({
       include: [
         { model: InterviewQuestion },
-        { model: InterviewAnswer, where: { userId: applicantId } }
+        { model: InterviewAnswer, where: { projectId, userId: applicantId } }
       ]
     });
 
