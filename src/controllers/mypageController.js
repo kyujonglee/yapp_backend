@@ -207,7 +207,7 @@ export const getProjectCart = async (req, res) => {
     } = req;
 
     const cartQuery =
-      'SELECT c.projectId, c.title, p.role FROM projectCart as c, project as p WHERE c.userId=:userId AND c.projectId=p.projectId';
+      'SELECT c.projectId, c.title, p.role, p.isClosed FROM projectCart as c, project as p WHERE c.userId=:userId AND c.projectId=p.projectId';
     const carts = await sequelize.query(cartQuery, {
       replacements: { userId }
     });
