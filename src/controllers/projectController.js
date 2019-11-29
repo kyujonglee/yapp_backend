@@ -426,6 +426,7 @@ export const searchProject = async (req, res) => {
     const { user } = req;
     if (!term) term = '';
     if (!offset) offset = 0;
+    else offset = parseInt(offset, 10);
     let condition = {
       where: {
         [Op.or]: [

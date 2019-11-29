@@ -167,6 +167,11 @@ projectRouter.patch(
  *            schema:
  *                type: integer
  *                example: 2
+ *          - in: query
+ *            name: offset
+ *            schema:
+ *                type: integer
+ *                example: 1
  *       responses:
  *          200:
  *              description: 검색 결과에 따른 projects
