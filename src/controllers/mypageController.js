@@ -115,7 +115,7 @@ export const deletePortfolio = async (req, res) => {
 
 async function getApplicants(projectId) {
   const query =
-    'SELECT appl.userId, appl.name, appl.profileImage, appl.role, (SELECT COUNT(ap.projectId) FROM applicantPortfolio as ap WHERE ap.projectId=appl.projectId ) as portfolioCnt FROM applicant as appl where appl.projectId= :projectId order by appl.role, appl.userId ASC';
+    'SELECT appl.userId, appl.name, appl.profileImage, appl.role, appl.isAccepted, (SELECT COUNT(ap.projectId) FROM applicantPortfolio as ap WHERE ap.projectId=appl.projectId ) as portfolioCnt FROM applicant as appl where appl.projectId= :projectId order by appl.role, appl.userId ASC';
   const applicants = await sequelize.query(query, {
     replacements: { projectId }
   });
@@ -130,7 +130,7 @@ export const getRecruit = async (req, res) => {
     } = req;
 
     const recruitProjects = await Project.findAll({
-      attributes: ['projectId', 'title', 'step', 'role'],
+      attributes: ['projectId', 'title', 'step', 'role' , 'isClosed'],
       where: { userId },
       order: [
         ['step', 'ASC'],
@@ -165,21 +165,14 @@ export const getApplicantDetail = async (req, res) => {
       ]
     });
 
-    const applicant = await User.findOne({
-      attributes: ['email', 'name', 'profileImage','phone','flag'],
-      where: { userId: applicantId }
-    });
-
-    const applicantInfo = await Applicant.findOne({
-      attributes : ['role','isAccepted'],
-      where : {projectId, userId: applicantId}
+    const applicant = await Applicant.findOne({
+      attributes : ['email', 'name', 'profileImage','phone','flag', 'role','isAccepted'],
+      where : {projectId, userId: applicantId},
+      include : [{model : User}]
     })
 
-    applicant.role = applicantInfo.role;
-    applicant.isAccepted = applicantInfo.isAccepted;
-
-    if(applicant.flag == 0){
-      applicant.phone = null;
+    if(applicant.dataValues.flag == 0){
+      applicant.dataValues.phone = '';
     }
 
     const portfolioQuery =
