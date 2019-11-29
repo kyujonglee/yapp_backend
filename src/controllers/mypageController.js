@@ -166,9 +166,21 @@ export const getApplicantDetail = async (req, res) => {
     });
 
     const applicant = await User.findOne({
-      attributes: ['email', 'name', 'profileImage'],
+      attributes: ['email', 'name', 'profileImage','phone','flag'],
       where: { userId: applicantId }
     });
+
+    const applicantInfo = await Applicant.findOne({
+      attributes : ['role','isAccepted'],
+      where : {projectId, userId: applicantId}
+    })
+
+    applicant.role = applicantInfo.role;
+    applicant.isAccepted = applicantInfo.isAccepted;
+
+    if(applicant.flag == 0){
+      applicant.phone = null;
+    }
 
     const portfolioQuery =
       'SELECT p.portfolioId, p.title, p.useStack, p.myRole, p.thumbnailImage, p.attachFile FROM portfolio as p, applicantPortfolio as a WHERE a.projectId=:projectId AND a.userId=:userId AND a.portfolioId=p.portfolioId';
