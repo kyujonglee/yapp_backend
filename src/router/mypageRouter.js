@@ -272,6 +272,11 @@ mypageRouter.delete(
  *               example: {
  *              applicantId: 1,
  *               }
+ *         - in: path
+ *           name: projectId
+ *           schema: 
+ *              type: integer
+ *           example: 1
  *     responses:
  *       200:
  *         description: Applicant detail

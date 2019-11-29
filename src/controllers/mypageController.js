@@ -69,7 +69,7 @@ export const updatePortfolio = async (req, res) => {
       body: { portfolioId, title, myRole, useStack, attachFile }
     } = req;
 
-    if(req.file){
+    if (req.file) {
       await Portfolio.update(
         {
           title,
@@ -80,8 +80,7 @@ export const updatePortfolio = async (req, res) => {
         },
         { where: { portfolioId } }
       );
-    }
-    else{
+    } else {
       await Portfolio.update(
         {
           title,
@@ -130,7 +129,7 @@ export const getRecruit = async (req, res) => {
     } = req;
 
     const recruitProjects = await Project.findAll({
-      attributes: ['projectId', 'title', 'step', 'role' , 'isClosed'],
+      attributes: ['projectId', 'title', 'step', 'role', 'isClosed'],
       where: { userId },
       order: [
         ['step', 'ASC'],
@@ -166,13 +165,20 @@ export const getApplicantDetail = async (req, res) => {
     });
 
     const applicant = await Applicant.findOne({
-      attributes : ['email', 'name', 'profileImage','phone','flag', 'role','isAccepted'],
-      where : {projectId, userId: applicantId},
-      include : [{model : User}]
-    })
-
-    if(applicant.dataValues.flag == 0){
-      applicant.dataValues.phone = '';
+      attributes: [
+        'name',
+        'profileImage',
+        'role',
+        'isAccepted',
+        'submitDate',
+        'seenFlag'
+      ],
+      where: { projectId, userId: applicantId },
+      include: [{ model: User }]
+    });
+    
+    if (applicant.user && applicant.user.dataValues.flag) {
+      applicant.user.dataValues.phone = '';
     }
 
     const portfolioQuery =
