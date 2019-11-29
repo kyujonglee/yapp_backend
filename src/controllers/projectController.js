@@ -435,7 +435,7 @@ export const searchProject = async (req, res) => {
         ]
       },
       limit: LIMIT,
-      offset,
+      offset: offset * LIMIT,
       order: [['createAt', 'DESC']]
     };
     let include = [
