@@ -69,16 +69,29 @@ export const updatePortfolio = async (req, res) => {
       body: { portfolioId, title, myRole, useStack, attachFile }
     } = req;
 
-    await Portfolio.update(
-      {
-        title,
-        myRole,
-        useStack,
-        thumbnailImage: req.file ? req.file.location : null,
-        attachFile
-      },
-      { where: { portfolioId } }
-    );
+    if(req.file){
+      await Portfolio.update(
+        {
+          title,
+          myRole,
+          useStack,
+          thumbnailImage: req.file.location,
+          attachFile
+        },
+        { where: { portfolioId } }
+      );
+    }
+    else{
+      await Portfolio.update(
+        {
+          title,
+          myRole,
+          useStack,
+          attachFile
+        },
+        { where: { portfolioId } }
+      );
+    }
     res.status(200).json({ message: 'success' });
   } catch (error) {
     throw Error(error);
@@ -102,7 +115,7 @@ export const deletePortfolio = async (req, res) => {
 
 async function getApplicants(projectId) {
   const query =
-    'SELECT appl.userId, appl.name, appl.profileImage, appl.role, (SELECT COUNT(ap.projectId) FROM applicantPortfolio as ap WHERE ap.projectId=appl.projectId ) as portfolioCnt FROM applicant as appl where appl.projectId= :projectId order by appl.role, appl.userId ASC';
+    'SELECT appl.userId, appl.name, appl.profileImage, appl.role, appl.isAccepted, (SELECT COUNT(ap.projectId) FROM applicantPortfolio as ap WHERE ap.projectId=appl.projectId ) as portfolioCnt FROM applicant as appl where appl.projectId= :projectId order by appl.role, appl.userId ASC';
   const applicants = await sequelize.query(query, {
     replacements: { projectId }
   });
@@ -117,7 +130,7 @@ export const getRecruit = async (req, res) => {
     } = req;
 
     const recruitProjects = await Project.findAll({
-      attributes: ['projectId', 'title', 'step', 'role'],
+      attributes: ['projectId', 'title', 'step', 'role' , 'isClosed'],
       where: { userId },
       order: [
         ['step', 'ASC'],
@@ -148,14 +161,19 @@ export const getApplicantDetail = async (req, res) => {
     const projectAndInterview = await Project.findAll({
       include: [
         { model: InterviewQuestion },
-        { model: InterviewAnswer, where: { userId: applicantId } }
+        { model: InterviewAnswer, where: { projectId, userId: applicantId } }
       ]
     });
 
-    const applicant = await User.findOne({
-      attributes: ['email', 'name', 'profileImage'],
-      where: { userId: applicantId }
-    });
+    const applicant = await Applicant.findOne({
+      attributes : ['email', 'name', 'profileImage','phone','flag', 'role','isAccepted'],
+      where : {projectId, userId: applicantId},
+      include : [{model : User}]
+    })
+
+    if(applicant.dataValues.flag == 0){
+      applicant.dataValues.phone = '';
+    }
 
     const portfolioQuery =
       'SELECT p.portfolioId, p.title, p.useStack, p.myRole, p.thumbnailImage, p.attachFile FROM portfolio as p, applicantPortfolio as a WHERE a.projectId=:projectId AND a.userId=:userId AND a.portfolioId=p.portfolioId';
@@ -182,7 +200,7 @@ export const getProjectCart = async (req, res) => {
     } = req;
 
     const cartQuery =
-      'SELECT c.projectId, c.title, p.role FROM projectCart as c, project as p WHERE c.userId=:userId AND c.projectId=p.projectId';
+      'SELECT c.projectId, c.title, p.role, p.isClosed FROM projectCart as c, project as p WHERE c.userId=:userId AND c.projectId=p.projectId';
     const carts = await sequelize.query(cartQuery, {
       replacements: { userId }
     });
