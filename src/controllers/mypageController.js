@@ -69,16 +69,29 @@ export const updatePortfolio = async (req, res) => {
       body: { portfolioId, title, myRole, useStack, attachFile }
     } = req;
 
-    await Portfolio.update(
-      {
-        title,
-        myRole,
-        useStack,
-        thumbnailImage: req.file ? req.file.location : null,
-        attachFile
-      },
-      { where: { portfolioId } }
-    );
+    if(req.file){
+      await Portfolio.update(
+        {
+          title,
+          myRole,
+          useStack,
+          thumbnailImage: req.file.location,
+          attachFile
+        },
+        { where: { portfolioId } }
+      );
+    }
+    else{
+      await Portfolio.update(
+        {
+          title,
+          myRole,
+          useStack,
+          attachFile
+        },
+        { where: { portfolioId } }
+      );
+    }
     res.status(200).json({ message: 'success' });
   } catch (error) {
     throw Error(error);
