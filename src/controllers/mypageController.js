@@ -114,7 +114,7 @@ export const deletePortfolio = async (req, res) => {
 
 async function getApplicants(projectId) {
   const query =
-    'SELECT appl.userId, appl.name, appl.profileImage, appl.role, appl.isAccepted, (SELECT COUNT(ap.projectId) FROM applicantPortfolio as ap WHERE ap.projectId=appl.projectId ) as portfolioCnt FROM applicant as appl where appl.projectId= :projectId order by appl.role, appl.userId ASC';
+    'SELECT appl.userId, appl.name, appl.profileImage, appl.role, appl.isAccepted, (SELECT COUNT(ap.portfolioId) FROM applicantPortfolio as ap WHERE ap.projectId=appl.projectId and appl.userId=ap.userId) as portfolioCnt, (SELECT p.title FROM portfolio as p, applicantPortfolio as ap WHERE p.portfolioId=ap.portfolioId AND ap.userId=appl.userId LIMIT 1) as title FROM applicant as appl where appl.projectId=:projectId order by appl.role, appl.userId ASC';
   const applicants = await sequelize.query(query, {
     replacements: { projectId }
   });
@@ -140,7 +140,6 @@ export const getRecruit = async (req, res) => {
     // eslint-disable-next-line no-restricted-syntax
     for await (const i of recruitProjects) {
       const { projectId } = i;
-      // WHY ??
       i.dataValues.applicants = (await getApplicants(projectId))[0];
     }
 
@@ -176,7 +175,7 @@ export const getApplicantDetail = async (req, res) => {
       where: { projectId, userId: applicantId },
       include: [{ model: User }]
     });
-    
+
     if (applicant.user && applicant.user.dataValues.flag) {
       applicant.user.dataValues.phone = '';
     }
