@@ -7,8 +7,10 @@
   <img alt="Maintenance" src="https://img.shields.io/badge/Maintained-maybe-green.svg" />
   <img alt="License" src="https://img.shields.io/badge/License-MIT-d.svg" />
 </p>  
+
 ### 영상
-데모 영상이 보고 싶다면 여기를 클릭해주세요!(https://www.youtube.com/watch?v=AXV3_G9aJ_o&feature=youtu.be)
+
+[데모 영상이 보고 싶다면 여기를 클릭해주세요!](https://www.youtube.com/watch?v=AXV3_G9aJ_o&feature=youtu.be)
 
 ### [🎲 HOMEPAGE](http://toyproject.co.kr)
 
