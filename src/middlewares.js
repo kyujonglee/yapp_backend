@@ -5,6 +5,7 @@ import aws from 'aws-sdk';
 
 const endpoint = new aws.Endpoint('https://kr.object.ncloudstorage.com');
 const region = 'kr-standard';
+const BUCKET = 'yapp-15th-6'
 
 const s3 = new aws.S3({
   accessKeyId: process.env.NCLOUD_KEY,
@@ -17,7 +18,7 @@ const multerAvatar = multer({
   storage: multerS3({
     s3,
     acl: 'public-read',
-    bucket: 'yapp-backend/avatar'
+    bucket: `${BUCKET}/avatar`
   })
 });
 
@@ -25,7 +26,7 @@ const multerProjectImage = multer({
   storage: multerS3({
     s3,
     acl: 'public-read',
-    bucket: 'yapp-backend/project'
+    bucket: `${BUCKET}/project`
   })
 });
 
@@ -33,13 +34,13 @@ const multerPortfolioImage = multer({
   storage: multerS3({
     s3,
     acl: 'public-read',
-    bucket: 'yapp-backend/portfolio'
+    bucket: `${BUCKET}/portfolio`
   })
 });
 
 export const uploadAvatar = multerAvatar.single('avatar');
 export const uploadProjectImage = multerProjectImage.single('thumbnailImage');
-export const uploadPortfolioImage = multerProjectImage.single('portfolioImage');
+export const uploadPortfolioImage = multerPortfolioImage.single('portfolioImage');
 
 export const authenticateJwt = (req, res, next) =>
   passport.authenticate('jwt', { sessions: false }, (error, user) => {
