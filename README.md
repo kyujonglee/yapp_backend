@@ -38,7 +38,7 @@
 - Express
 - Mysql
 - Sequelize
-- Swaggerd
+- Swagger
 
 <img src="https://i.imgur.com/puSQfgO.png" />
 <img src="https://i.imgur.com/uSBG1Ph.png" />
